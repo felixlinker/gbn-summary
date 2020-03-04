@@ -1,0 +1,36 @@
+\documentclass{book}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{tikz}
+\usepackage{multicol}
+
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{corollary}{Korollar}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{remark}
+\newtheorem{remark}{Anmerkung}[chapter]
+\newtheorem{observation}{Beobachtung}[chapter]
+\newtheorem{example}{Beispiel}[chapter]
+
+\newcommand{\nats}[0]{\ensuremath{\mathbb{N}}}
+\newcommand{\reals}[0]{\ensuremath{\mathbb{R}}}
+
+\title{Zusammenfassung: Graphen und biologische Netze}
+\author{Felix Linker}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\input{sects/defs.tex}
+\input{sects/alg.tex}
+
+\end{document}

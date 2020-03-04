@@ -1,0 +1,704 @@
+\chapter{Algebraische Graphentheorie \& Kreise}
+
+Im folgenden sei $ G = (V = \{ v_1, \dots, v_n \}, E = \{ e_1, \dots, e_m \}) $ ein fixierter, ungerichteter Graph.
+
+\begin{definition}[Inzidenzmatrix]
+    Eine Inzidenzmatrix $ I $ ist eine Matrix der Dimension $ n \times m $ mit:
+    \begin{multicols}{2}
+        Für ungerichtete Graphen:
+        \begin{equation*}
+            I_{kl} = \begin{cases}
+                0, & v_k \notin e_l \\
+                1, & v_i \in e_l
+            \end{cases}
+        \end{equation*}
+
+        \columnbreak
+
+        Für gerichtete Graphen:
+        \begin{equation*}
+            I_{kl} = \begin{cases}
+                1, & e_l = (v_k, v') \\
+                0, & v_k \notin e_l \\
+                -1, & e_l = (v', v_k)
+            \end{cases}
+        \end{equation*}
+    \end{multicols}
+
+    \textit{(Die Wahl der jeweiligen Konstanten ist dabei Konvention.)}
+\end{definition}
+
+\begin{definition}[Inzidenzstruktur]
+    Eine Inzidenzstruktur ist ein Tupel $ (p, B, I) $ mit $ I \subseteq p \times B $ und $ p \cap B = \emptyset $.
+    \begin{itemize}
+        \item $ p $ ist eine Menge von \textit{Punkten}
+        \item $ B $ ist eine Menge von \textit{Blöcken}
+        \item $ I $ ist eine \textit{Inzidenzmatrix}
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Adjanzenzmatrix]
+    Eine Adjanzenzmatrix ist eine Matrix $ A \subseteq \{ 0, 1 \}^{n \times m} $ mit
+    \begin{equation*}
+        A_{kl} = 1 \Leftrightarrow \{ v_k, v_l \} \in E
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Gradmatrix/Degreematrix]
+    Eine Gradmatrix ist eine Matrix $ D \subseteq \nats^{n \times m} $ mit
+    \begin{equation*}
+        D_{kl} = \begin{cases}
+            deg(v_k), & k = l \\
+            0
+        \end{cases}
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Laplacematrix]
+    Seien $ D $ eine Gradmatrix und $ A $ eine Adjanzenzmatrix.
+    Die Laplacematrix $ L $ ist definiert als:
+    \begin{equation*}
+        L = D - A
+    \end{equation*}
+
+    Für einen gerichteten Graphen und dessen Inzidenzmatrix $ I $, kann $ L $ alternativ definiert werden als: $ L = I \cdot I^\top $.
+\end{definition}
+
+\section{Algebraische Konnektivität}
+
+\begin{definition}[Eigenwertproblem]
+    Sei $ M \subseteq \reals^{n \times m} $ und $ E \in Diag(1)^n $ die entsprechende Einheitsmatrix.
+    Das \textit{Eigenwertproblem} beschreibt das finden von Skalaren $ \lambda $ und Vektoren $ x $, sodass
+    \begin{align*}
+        & Ax = \lambda Ex \\
+        \equiv \; & (A - \lambda E) x = 0
+    \end{align*}
+
+    Die Menge aller Eigenwerte $ \lambda_i $ induziert das \textit{Eigenspektrum}.
+\end{definition}
+
+\begin{definition}[Fiedler Wert/Vektor/Algebraische Konnektivität]
+    Der Fiedler Wert ist der zweit-kleinste Eigenwert der Laplacematrix (mehrfach vorkommende Eigenwerte werden mehrfach gezählt).
+    Der Fiedler Vektor ist der Eigenvektor des Fiedler Werts.
+
+    Der Fiedler Wert ist die \textbf{algebraische Konnektivität} eines Graphen.
+\end{definition}
+
+\begin{proposition}
+    Die Anzahl der 0-en im Spektrum der Laplacematrix ist gleich der Anzahl der Zusammenhangskomponenten eines Graphen.
+\end{proposition}
+
+\begin{corollary}
+    Der Fiedler Wert ist 0 gdw. ein Graph ist nicht verbunden.
+\end{corollary}
+
+\begin{observation}
+    Sei $ n = |V| $, $ D $ der Durchmesser von $ G $ und sei $ G $ $ k $-verbunden.
+    Dann gilt, dass die algebraische Konnektivität $ v $ beschränkt ist durch:
+    \begin{equation*}
+        \frac{4}{nD} \leq v \leq k
+    \end{equation*}
+\end{observation}
+
+\begin{observation}
+    Der Fiedler Vektor eignet sich zur Partitionierung von Graphen.
+    Komponenten dieses Vektors beschreiben die algebraische Verbundenheit des entsprechenden Knotens (es wird der Knoten des jeweiligen Index der Laplace-/Adjanzenzmatrix beschrieben).
+
+    Je kleiner der Wert, desto weniger verbunden ist ein Knoten.
+    Zerlegt man $ G $ nach Vorzeichen des Fiedler Vektors in zwei Teilgraphen, erhält man zwei ``optimal'' zusammenhängende Komponenten.
+\end{observation}
+
+\subsection{Cauchy Interlace Theorem}
+
+\begin{theorem}[Cauchy Interlace Theorem]
+    \label{thm:interlace}
+    Sei $ M \subseteq \reals^{n \times n} $ eine symmetrische Matrix, d.h. $ M = M^\top $\footnote{%
+        Im eigentlich Theorem ist die Matrix definiert auf den komplexen Zahlen und muss lediglich hermitesch sein, d.h. symmetrisch modulo komplexe Konjugation.
+        Dies ist hier jedoch nicht von Relevanz.
+    }, mit den Eigenwerten $ \lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n $.
+    Des Weiteren sei $ N \subseteq \reals^{n - 1 \times n - 1} $ eine Teilmatrix von $ M $ mit den Eigenwerten $ \mu_1 \leq \mu_2 \leq \dots \leq \mu_{n - 1} $.
+
+    Dann gilt:
+    \begin{equation*}
+        \lambda_1 \leq \mu_1 \leq \lambda_2 \leq \mu_2 \leq \dots \leq \mu_{n - 1} \leq \lambda_n
+    \end{equation*}
+    Dies ist die durch das Theorem beschriebene ``interlacing Struktur''.
+\end{theorem}
+
+\begin{observation}
+    Das Cauchy Interlace Theorem (\ref{thm:interlace}) beschreibt, welche Auswirkungen das Löschen von Knoten auf die Eigenwerte der Laplacematrix und damit Konnektivität des Graphen hat.
+\end{observation}
+
+\section{Konnektivität}
+
+\begin{definition}[Unabhängige Pfade]
+    Zwei Pfade $ p = x p_1 \dots p_n y $ und $ q = x q_1 \dots q_m y $ sind unabhängig, falls $ p_i \neq q_j $ für $ 1 \leq i \leq n, 1 \leq j \leq n $.
+\end{definition}
+
+\begin{proposition}[Charakterisierung von $ k $-Verbundenheit]
+    \label{prp:char-k-connected}
+    $ G $ ist $ k $-verbunden, falls:
+    \begin{enumerate}
+        \item Alle $ k - 1 $ großen, induzierten Subgraphen verbunden sind.
+        \item Für alle $ v_1, v_2 \in V $, $ k - 1 $-viele, unabhängige Pfade von $ v_1 $ nach $ v_2 $ existieren.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}[Charakterisierung von 2-Verbundenheit]
+    \label{prp:char-2-connected}
+    Die Menge aller 2-verbundenen Graphen ist gleich $ \mathcal{V} $.
+
+    $ \mathcal{V} $ sei induktiv definiert durch:
+    Sei $ \mathcal{C} $ die Menge aller Kreise.
+    $ \mathcal{V} $ ist die kleinste Menge, für die gilt:
+    \begin{enumerate}
+        \item $ \mathcal{C} \subseteq \mathcal{V} $
+        \item Wenn $ G \in \mathcal{V} $ und $ H \notin \mathcal{C} $ ein Pfad mit Endpunkten (und nur Endpunkten) auf $ G $, dann gilt $ G \cup H \in \mathcal{V} $.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}~\par
+    \begin{description}
+        \item[``$ \subseteq $''] Sei $ G $ 2-verbunden, aber nicht in $ \mathcal{V} $.
+        Da $ G $ 2-verbunden, ex. ein Kreis in $ G $.
+        Somit ex. ein maximaler, induzierter, echter Subgraph $ H \subsetneq G $ mit $ H \in \mathcal{V} $.
+
+        Da $ G $ verbunden, ex. Kante $ vw \in E $ mit $ w \in H $ und $ v \in G \setminus H $.
+        Da $ G $ 2-verbunden, ex. nach Proposition \ref{prp:char-k-connected} ein Pfad zu einem beliebigen anderen Knoten $ w' \in H $, der nicht über $ w $ verläuft.
+        Somit existiert in $ G $ aber ein Pfad von $ w $ über $ v $ nach $ w' $.
+        Damit aber nach Voraussetzung der Maximalität von $ H $, $ v \in V(H) $.
+        Widerspruch.
+        \item[``$ \supseteq $''] Offensichtlich.
+    \end{description}
+\end{proof}
+
+\begin{remark}
+    Ähnlich konstruktive Charakterisierungen sind für $ k $-Verbundenheit mit $ 2 < k $ deutlich schwerer.
+\end{remark}
+
+\begin{observation}
+    Die induktive Definition aus Proposition \ref{prp:char-2-connected} induziert einen Algorithmus zur Generierung 2-verbundener Graphen und Überprüfung, ob ein Graph 2-verbunden ist.
+    \begin{enumerate}
+        \item Zur Generierung, starte mit einem beliebigen Kreis und füge Pfade hinzu, die selbst kein Kreis sind.
+        \item Zur Überprüfung, lösche Pfade aus dem Graphen, die selbst kein Kreis sind, und schau, ob am Ende ein Kreis entsteht.
+    \end{enumerate}
+
+    Kreise sind demnach ``atomare'' 2-verbundene Graphen.
+\end{observation}
+
+\section{Kreisbasen}
+
+Im Folgenden werden nur zusammenhängende Graphen mit mindestens zwei Knoten betrachtet.
+Dadurch lässt sich ein Graph vollständig durch seine Kantenmenge $ E $ beschreiben.
+Werden Teilgraphen betrachtet, müssen diese die gleichen Eigenschaften erfüllen.
+
+\begin{remark}
+    Die Ergebnisse dieses Abschnitts können auch auf Graphen, die diese Eigenschaften nicht erfüllen, ausgeweitet werden.
+    I.~A. bestehen solche Graphen aus Komponenten von 2-zusammenhängenden Graphen, die entweder nicht- oder 1-verbunden sind.
+    Solche Komponenten werden \textit{Blöcke} genannt.
+
+    Die Ergebnisse in diesem Abschnitt können dann auf Blöcke angewendet werden.
+\end{remark}
+
+\begin{definition}[Charakteristischer Vektor]
+    Sei $ F \subseteq E $.
+    Der charakteristische Vektor von $ F $, $ \vec{F} \in \{ 0, 1 \}^m $ ist gegeben durch:
+    \begin{equation*}
+        \vec{F}_i = \begin{cases}
+            0, & e_i \notin F \\
+            1, & e_i \in F
+        \end{cases}
+    \end{equation*}
+\end{definition}
+
+Im Folgenden werden Mengen von Kanten und charakteristische Vektoren synonym verwendet.
+Des Weiteren bezeichne $ \cdot $ die komponentenweise Multiplikation, $ \odot $ die Matrixmultiplikation und $ \oplus $ den XOR Operator.
+
+\begin{proposition}
+    \label{prp:xor-odd-even}
+    Sei $ A \subseteq E $.
+    Es gilt:
+    \begin{equation*}
+        \bigoplus_{e \in A} e = \begin{cases}
+            0, & |A| \mod 2 = 0 \\
+            1, & |A| \mod 2 \ne 0
+        \end{cases}
+    \end{equation*}
+\end{proposition}
+
+\begin{proposition}
+    Sei $ H $ eine Inzidenzmatrix und $ C \subseteq E $ ein Kreis.
+    Dann gilt:
+    \begin{equation*}
+        H \odot C = 0^m
+    \end{equation*}
+    oder äquivalent
+    \begin{equation*}
+        \forall x \in V: (H \odot C)_x = 0 = \bigoplus_{e \in E} (H_{xe} \cdot C_e)
+    \end{equation*}
+\end{proposition}
+
+\begin{proof}
+    Betrachte $ x \in V $.
+    Beweis per Fallunterscheidung.
+    \begin{enumerate}
+        \item Es gelte: $ x $ liegt auf $ C $.
+
+        Dann gilt $ \bigoplus_{e \in E} H_{xe} \cdot C_e = 0 $, da niemals $ H_{xe} = 1 $ ($ x $ ist inzident zu Kante $ e $) und $ C_e = 1 $ (Kante $ e $ ist im Kreis).
+
+        \item Es gelt: $ x $ liegt auf $ C $.
+
+        Dann gibt es genau zwei Kanten auf $ C $, die zu $ x $ inzident sind.
+        Somit gilt:
+        \begin{align*}
+            \bigoplus_{e \in E} H_{xe} &= \big(\bigoplus_{e \in C} H_{xe} \cdot C_e\big) \oplus \big(\bigoplus_{e \in E \setminus C} H_{xe} \cdot C_e\big) \\
+            &= (1 \oplus 1 \oplus 0 \oplus 0 \oplus \dots) \oplus (0 \oplus 0 \oplus \dots) \\
+            &= 0 \oplus 0 = 0
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}[Addition von Kreisen]
+    \label{prp:circle-add}
+    Für zwei Kreise $ C_1, C_2 \subseteq E $ gilt:
+    \begin{equation*}
+        \vec{C_1} \oplus \vec{C_2} \simeq C_1 \triangle C_2 = (C_1 \cup C_2) \setminus (C_1 \cap C_2)
+    \end{equation*}
+\end{proposition}
+
+\begin{proposition}
+    \label{prp:circle-mult}
+    Sei $ F \subseteq E $.
+    Es gilt $ H \odot F = 0^m $ gdw. $ F $ ist ein Kreis.
+\end{proposition}
+
+\begin{remark}
+    Nach Propositionen \ref{prp:circle-add} und \ref{prp:circle-mult} kann jeder Kreis als Kantendisjunkte Summe kleinerer Kreise dargestellt werden.
+    Dies motiviert die Definition eines Vektorraums der Kreise.
+\end{remark}
+
+\begin{definition}[Kreisraum]
+    Sei $ V $ die Menge aller Kreise in $ G $.
+    Der \textit{Kreisraum} $ \mathcal{C}(G) $ von $ G $ ist der Vektorraum $ (V, \oplus) $ ohne Skalarmultiplikation, d.h. wenn $ F_1, F_2 \in V $, dann $ F_1 \oplus F_2 \in V $.
+
+    Die Basis dieses Vektorraums wird \textit{Kreisbasis} genannt.
+\end{definition}
+
+\begin{definition}[Basis]
+    Die \textit{Basis} eines Vektorraums $ \mathcal{V} = (V, \oplus, \odot) $ ist eine Menge $ B = \{ b_1, \dots, b_n \}$ von Vektoren mit:
+    \begin{enumerate}
+        \item Jeder Vektor $ v \in V $ lässt sich als Linearkombination von Basisvektoren darstellen:
+        \begin{equation*}
+            v = \bigoplus_{i = 1}^n \lambda_i \cdot b_i
+        \end{equation*}
+        Die Basis bildet ein \textit{Erzeugendensystem}.
+
+        \item $ B $ ist linear unabhängig und damit insbesondere minimal.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Lineare Unabhängigkeit]
+    Eine Menge von Vektoren $ V = \{ v_1, \dots, v_n \} $ ist linear unabhängig, falls die Gleichung
+    \begin{equation*}
+        \bigoplus_{i = 1}^m \lambda_i \cdot v_i = 0
+    \end{equation*}
+    nur die Lösung $ \lambda_1 = \lambda_2 = \dots = 0 $ hat.
+\end{definition}
+
+\begin{definition}[Kantenraum]
+    Die Menge der Einheitsvektoren $ E $ aus $ \{ 0, 1\}^m $ bildet die Basis das \textit{Kantenraums} $ \mathcal{E}(G) $, der alle Teilgraphen von $ G $ enthält.
+\end{definition}
+
+\begin{proposition}
+    Es gilt $ \mathcal{C}(G) $ ist ein Unterraum von $ \mathcal{E}(G) $, d.h. insbesondere $ \dim \mathcal{C}(G) \leq \dim \mathcal{E}(G) = m $.
+\end{proposition}
+
+\section{Schnitte}
+
+\begin{definition}[Schnitt]
+    Eine Menge $ K \subseteq E $ ist ein Schnitt, falls $ (V, E \setminus K) $ nicht zusammenhängend ist.
+\end{definition}
+
+\begin{definition}[Elementarer Schnitt]
+    Der elementare Schnitt für einen Knoten $ v \in V $ ist definiert als $ K_v = \{ e \in E \mid v \in e \} $.
+\end{definition}
+
+\begin{definition}[Cut]
+    Sei $ A \subsetneq V $, $ A \ne \emptyset $.
+    $ Cut(A) = \{ e \in E \mid e \cap A \ne \emptyset, e \cap (V \setminus A) \ne \emptyset \} $, d.h. die Menge der Kanten, die einen Endpunkt in $ A $ und einen Endpunkt in $ V \setminus A $ haben.
+\end{definition}
+
+\begin{proposition}
+    Sei $ A \subsetneq V $, $ A \ne \emptyset $.
+    Es gelten jeweils:
+    \begin{enumerate}
+        \item $ Cut(A) = Cut(V \setminus A) $ und
+        \item $ Cut(A) = \bigoplus_{v \in A} K_v $.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Offensichtlich.
+        \item Betrachte $ e \in E $ mit $ e \subseteq A $.
+        Dann ex. genau zwei elementare Schnitte von Knoten aus $ A $, die $ e $ enthalten.
+        Somit $ (\bigoplus_{v \in A} K_v)_e = 0 $.
+
+        Betrachte nun $ e \in E $ mit $ e \cap A = \emptyset $.
+        Dann ex. kein elementarer Schnitt, der $ e $ enthält, somit ist die entsprechende Vektor-Komponente auch hier gleich $ 0 $.
+
+        Angenommen $ e \in E $ mit $ e \cap A \ne \emptyset $, aber $ e \not \subseteq A $.
+        Dann ex. genau ein elementarer Schnitt von Knoten aus $ A $, der $ e $ enthält.
+        Somit ist die entsprechende Vektor-Komponente gleich $ 1 $.
+    \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+    Es gilt:
+    \begin{equation*}
+        Cut(A) \oplus Cut(V \setminus A) = 0 = \bigoplus_{v \in V} K_v
+    \end{equation*}
+
+    Somit ist die Menge aller elementaren Schnitte linear abhängig.
+\end{corollary}
+
+\begin{definition}[Schnittraum]
+    Sei $ V $ die Menge aller Schnitte.
+    Der \textit{Schnittraum} $ \mathcal{K}(G) $ von $ G $ ist der Vektorraum $ (V, \oplus) $ ohne Skalarmultiplikation.
+\end{definition}
+
+\begin{proposition}
+    Seien $ K, C \subseteq E $ ein Schnitt und ein Kreis.
+    Dann gilt
+    \begin{equation*}
+        \bigoplus_{e \in E} K_e \cdot C_e = \bigoplus_{e \in K \cap C} 1 = 0
+    \end{equation*}
+\end{proposition}
+
+\begin{proof}
+    Es genügt, zu zeigen, dass $ |K \cap C| \mod 2 = 0 $ (vgl. Prop. \ref{prp:xor-odd-even}).
+    Da $ K $ ein Schnitt ist, muss $ C \setminus K $ eine Menge von Pfaden sein.
+    Eine Menge von Pfaden könnte aber nicht durch eine ungerade Anzahl von Kanten zu einem Kreis verbunden werden, somit muss $ |K \cap C| $ gerade sein.
+\end{proof}
+
+\begin{proposition}
+    Es gilt:
+    \begin{equation*}
+        \dim \mathcal{K}(G) + \dim \mathcal{C}(G) = |E| = \dim \mathcal{E}(G)
+    \end{equation*}
+\end{proposition}
+
+\begin{remark}
+    Schnitte und Kreise sind also orthogonal.
+\end{remark}
+
+\begin{definition}[Spannbaum]
+    Der \textit{Spannbaum} eines zusammenhängen Graphen ist der Teilgraph $ W \subseteq G $, der ein zusammenhängender Baum ist und jeden Knoten von $ G $ enthält.
+\end{definition}
+
+\begin{remark}
+    Ein Baum mit mit $ |V| $ Knoten, enthält $ |V| - 1 $ Kanten.
+\end{remark}
+
+\begin{definition}[Erweiterter Cut]
+    Sei $ T $ ein Spannbaum von $ G $ und $ e $ eine Kante in $ T $.
+    Dann ist $ Cut(T, e) $ die Menge aller Kanten in $ G $, die die Zusammenhangskomponenten verbinden, die sich durch entfernen von $ e $ in $ T $ ergeben.
+\end{definition}
+
+\begin{proposition}
+    \label{prp:cuts-independent}
+    Für einen fixierten Spannbaum $ T $ ist die Menge aller Schnitte $ Cut(T, e) $, $ e \in E(T) $ linear unabhängig.
+\end{proposition}
+
+\begin{proof}
+    Seien $ T = (V_T, E_T) $, $ e, e' \in E_T $.
+    Es gilt, dass $ e \in Cut(T, e') $ gdw. $ e = e' $.
+    Somit gilt insbesondere für alle Folgen von Knoten $ e_1, e_2, \dots \in E $ mit $ e_i \ne e $: $ Cut(T, e_1)_e = 0 $, $ Cut(T, e_2)_e = 0 $, etc., und damit $ e \notin Cut(T, e_1) \oplus Cut(T, e_2) \oplus \dots $.
+\end{proof}
+
+\begin{proposition}
+    Jeder Schnitt kann als eine Summe aus Schnitten $ \{ Cut(T, e) \mid e \in T \} $ für einen fixierten Spannbaum $ T $ dargestellt werden.
+\end{proposition}
+
+\begin{proposition}
+    \label{prp:dim-bases}
+    Beachte, dass $ |\{ Cut(T, e) \mid e \in T \}| = |V| - 1 $.
+    Somit
+    \begin{equation*}
+        \dim \mathcal{K}(G) = |V| - 1
+    \end{equation*}
+    und daher
+    \begin{equation*}
+        \dim \mathcal{C}(G) = |E| - \dim \mathcal{K}(G) = |E| - |V| + 1
+    \end{equation*}
+\end{proposition}
+
+\begin{definition}[Cyc]
+    Sei $ T = (V_T, E_T) $ ein Spannbaum und $ e \notin E_T $.
+    $ Cyc(T, e) $ sei der eindeutig bestimmte Kreis in $ (V_T, E_T \cup \{ e \}) $.
+\end{definition}
+
+\begin{proposition}
+    \label{prp:cyc-independent}
+    Sei $ T = (V_T, E_T) $ ein Spannbaum.
+    Die Menge $ \{ Cyc(T, e) \mid e \in E \setminus E_T \} $ ist linear unabhängig.
+\end{proposition}
+
+\begin{proof}
+    Dieser Beweis kann analog zum Beweis von Proposition \ref{prp:cuts-independent} geführt werden.
+    Dazu genügt es, sich zu verdeutlichen, dass für $ e, e' \in E \setminus E_T $ gilt: $ e \in Cyc(T, e') $ gdw. $ e = e' $.
+\end{proof}
+
+\begin{proposition}
+    Sei $ T = (V_T, E_T) $ ein Spannbaum.
+    Die Menge $ C = \{ Cyc(T, e) \mid e \in E \setminus E_T \} $ ist eine Basis für den Kreisraum $ \mathcal{C}(G) $.
+\end{proposition}
+
+\begin{proof}
+    Es wurde bereits gezeigt, dass $ C $ linear unabhängig ist (vgl. Prop. \ref{prp:cyc-independent}).
+    Es bleibt zu zeigen dass $ |V| = \dim \mathcal{C}(G) $.
+    \begin{align*}
+        |V| &= |\{ Cyc(T, e) \mid e \in E \setminus E_T \}| \\
+            &= |E| - |E_T| \\
+            &= |E| - (|V| - 1) \\
+            &= |E| - |V| + 1 \\
+            &= \dim \mathcal{C}(G) & \text{Prop. \ref{prp:dim-bases}}
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    Für einen Spannbaum $ T = (V_T, E_T) $ wird die Menge $ \{ Cyc(T, e) \mid e \in E \setminus E_T \} $ auf \textit{Kirchhoff-Basis} genannt.
+\end{remark}
+
+\section{Ohren-Zerlegung}
+
+Aus der Charakterisierung von 2-verbundenen Graphen in Proposition \ref{prp:char-2-connected} motiviert die Zerlegung von 2-verbunden Graphen in \textit{Ohren}.
+
+\begin{definition}[Ohr]
+    Eine Menge von Kanten bzw. ein Graph $ P = e_1e_2\dots e_m $ ist ein Ohr, falls $ E $ einen Kreis darstellt oder einen Pfad mit $ e_1 = \{ x_0, x_1 \} $, $ e_2 = \{ x_1, x_2 \} $, etc., bildet, für den gilt:
+    \begin{itemize}
+        \item für $ 1 \leq i \leq m - 1 $ gilt $ \deg(x_i) = 2 $;
+        \item und $ 3 \leq \deg(x_0), \deg(x_m) $.
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}[Whitney-Theorem]
+    Ist $ G $ 2-zusammenhängend, dann gibt es ein Ohr $ P $ in $ G $, sodass $ G \setminus P $ wieder 2-zusammenhängend ist.
+\end{theorem}
+
+\begin{proposition}
+    Sei $ G $ 2-zusammenhängend und $ P $ ein Ohr in $ G $.
+    Dann ex. ein Kreis $ C $ in $ G $ mit $ P \subseteq C $.
+\end{proposition}
+
+\begin{definition}[Ohrenzerlegung]
+    Sei $ G $ ein 2-zusammenhängender Graph.
+    Eine Ohrenzerlegung ist eine Folge $ (G_k, P_k, G_{k - 1}, P_{k - 1}, \dots G_0) $ mit $ G = G_k $, $ P_i $ ist ein Ohr, $ G_0 $ ist ein Kreis und $ G_{i - 1} = G_i \setminus P_i $.
+\end{definition}
+
+\begin{proposition}
+    Jeder 2-zusammenhängende Graph hat eine Ohrenzerlegung.
+\end{proposition}
+
+\begin{definition}[Ohrenbasis]
+    Sei $ (G_k, P_k, \dots, P_1, G_0) $ eine Ohrenzerlegung von $ G $.
+    Definiere $ C_k $ als die Ergänzung von $ P_k $ zu einem Kreis in $ G_k $.
+
+    Dann ist
+    \begin{equation*}
+        B = \{ C_i \mid 1 \leq i \leq k \} \cup \{ G_0 \}
+    \end{equation*}
+    die \textit{Ohrenbasis} von $ G $.
+\end{definition}
+
+\begin{theorem}
+    Eine Ohrenbasis $ B $ von $ G $ ist eine Basis des Vektorraums $ \mathcal{C}(G) $.
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Zeige, dass $ B $ linear unabhängig ist.
+
+        Betrachte dazu $ C_i \in B $.
+        Es ex. ein eindeutiges Ohr $ P_i \subseteq C_i $.
+        Nach Konstruktion gilt, dass $ P_i \not \subseteq C_j $ für $ j \ne i $.
+        Somit kann $ C_i $ nicht aus einer Folge von anderen Elementen der Basis erzeugt werden.
+
+        \item Zeige, dass $ |B| = \dim \mathcal{C}(G) $.
+        Es gelte als Konvention $ G_i = (V_i, E_i) $ und $ B_i $ bezeichne die Kreisbasis von $ G_i $.
+
+        Zunächst gilt offensichtlich, dass die Anzahl Knoten in $ G_{i + 1} $ gleich Summe der Anzahl innerer Knoten von $ P_i $ und der Anzahl von Knoten in $ G_i $ ist.
+        Die Anzahl innerer Knoten in $ P_i $ ist wiederum gleich $ |P_i| - 1 $.
+
+        Ebenso gilt, dass $ |G_{i + 1}| = |E_{i}| + |P_{i}| $.
+
+        Zu zeigen ist, dass $ |B| = |B_k| = k + 1 = \dim \mathcal{C}(G) $.
+        Beweis per Induktion über $ i $.
+        \begin{description}
+            \item[IA] Sei $ P_0 = G_0 $.
+            Da $ G_0 $ ein Kreis ist, $ B_0 = \{ G_0 \} $ offensichtlich eine Kreisbasis von $ G_0 $ und es gilt $ |B_0| = 0 + 1 $.
+            \item[IV] Es gelte $ |B_i| = i + 1 $.
+            \item[IS] Zu zeigen ist $ |B_{i + 1}| = i + 2 $.
+            Es gilt:
+            \begin{align*}
+                |B_{i + 1}| &= |E_{i + 1}| - |V_{i + 1}| + 1 & \text{Prop. \ref{prp:dim-bases}} \\
+                &= |G_i| + |P_i| - |V_{i + 1}| + 1 \\
+                &= |G_i| + |P_i| - (|V_i| + |P_i| - 1) + 1 \\
+                &= |G_i| + |P_i| - |V_i| - |P_i| + 2 \\
+                &= |G_i| - |V_i| + 2 \\
+                &= |B_i| + 1 & \text{Prop. \ref{prp:dim-bases}} \\
+                &= i + 1 + 1 = i + 2 & \text{IV}
+            \end{align*}
+        \end{description}
+    \end{enumerate}
+\end{proof}
+
+\section{Weitere Eigenschaften}
+
+\begin{definition}[Fundamental]
+    Eine Menge von Kreisen $ \mathcal{F} $ heißt \textit{fundamental}, falls die Kreise in $ \mathcal{F} $ in eine Folge $ (C_0, C_1, \dots, C_k) $ so geordnet werden können, dass für $ 2 \leq i \leq k $ gilt:
+    \begin{equation*}
+        C_i \setminus \big(\bigcup^{i-1}_{j=1} C_j \big) \ne \emptyset
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    In einer fundamentalen Menge enthält jeder Kreis (bis auf einen\footnote{%
+        Der Kreis, dessen Kanten alle in anderen Kreisen vorkommen, bildet das erste Folgenglied.
+    }) eine Kante, die in keinem anderen Kreis vorkommt.
+\end{remark}
+
+\begin{proposition}
+    Jede Ohrenbasis ist fundamental.
+\end{proposition}
+
+\begin{lemma}
+    Eine Menge von Kreisen $ \mathcal{F} $ ist nicht fundamental, wenn es keine Kante gibt, die in genau einem Kreis vorkommt.
+\end{lemma}
+
+\begin{definition}[Strikt Fundamental]
+    Eine Menge von Kreisen $ \mathcal{F} $ ist \textit{strikt fundamental}, wenn die Eigenschaft der Fundamentalität für jede Ordnung der Kreise gilt.
+\end{definition}
+
+\begin{proposition}
+    Eine Kirchhoff-Basis ist strikt fundamental, d.h. ist $ B $ eine strikt fundamentale Kreisbasis von $ \mathcal{C}(G) $, dann ex. ein Spannbaum $ T $, sodass $ B $ die Kirchhoff-Basis für $ T $ ist.
+\end{proposition}
+
+\begin{definition}[Matroid]
+    Sei $ X $ eine Grundmenge, $ I \subseteq 2^X $.
+    $ I $ ist ein \textit{Matroid}, falls:
+    \begin{enumerate}
+        \item $ \emptyset \in I $,
+        \item wenn $ A \in I $ und $ B \subseteq A $, dann $ B \in I $ und,
+        \item wenn $ A, B \in I $ und $ |B| < |A| $, dann ex. $ x \in A \setminus B $ mit $ B \cup \{ x \} \in I $.
+    \end{enumerate}
+
+    Des Weiteren ist $ A \in I $ \textit{maximal unabhängig}, falls $ \forall x \in X \setminus A: A \cup \{ x \} \notin I $.
+\end{definition}
+
+\begin{remark}
+    Die Menge der Kreise in einem Graphen $ G $ bildet als Vektorraum auch ein Matroid.
+\end{remark}
+
+\begin{definition}[Kanonischer Greedy-Algorithmus]
+    Sei $ I $ ein Mengensystem über einer Grundmenge $ X $ und $ w : X \rightarrow \reals^+ $ eine Gewichtungsfunktion.
+
+    Ein \textit{Optimierungsproblem} ist die Suche nach einer unabhängigen Menge $ A \in I $, sodass $ \sum_{x \in A} w(x) $ minimal ist.
+
+    Der kanonische Greedy-Algorithmus ist ein Ansatz für dieses Problem und funktioniert wie folgt:
+    \begin{enumerate}
+        \item Setze $ B := \emptyset $.
+        \item Sortiere $ X $ aufsteigend.
+        \item \label{itm:greedy-loop} Sei $ x $ das minimale, also das erste, Element aus $ X $.
+        \item Lösche $ x $ aus $ X $.
+        \item Falls, $ B \cup \{ x \} \in I $, setze $ B := B \cup \{ x \} $.
+        \item Falls $ X \ne \emptyset $, gehe zu \ref{itm:greedy-loop}.
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    Der kanonische Algorithmus berechnet das korrekte Ergebnis auf einem Mengensystem $ I $ gdw. $ I $ ein Matroid ist.
+\end{proposition}
+
+\begin{definition}[Vektor Matroid]
+    Sei $ R = (V, \oplus) $ ein Vektorraum ohne Skalarmultiplikation.
+    Sei $ E \subseteq V $ beliebig und $ I \subseteq 2^E $ die Menge aller linear unabhängigen Teilmengen von $ E $.
+    Dann ist $ I $ ein Matroid und wird \textit{Vektormatroid} genannt.
+\end{definition}
+
+\begin{proposition}
+    Sei $ I $ ein Vektormatroid.
+    Dann bildet jede maximal unabhängige Menge eine Basis des Untervektorraums, der von $ E $ induziert wird.
+\end{proposition}
+
+\section{Minimale Kreisbasis}
+
+\begin{definition}[Minimale Kreisbasis]
+    Eine Basis von $ \mathcal{C}(G) $ ist eine \textit{minimale Kreisbasis (MCB)}, falls sie $ \leq $-minimal bzgl. $ \sum_{C \in B} |C| $ ist.
+\end{definition}
+
+\begin{definition}[Relevant]
+    Ein Kreis $ C $ ist \textit{relevant}, falls $ C $ nicht als $ \oplus $-Summe von echt kürzeren Kreisen dargestellt werden kann.
+
+\end{definition}
+
+\begin{proposition}
+    Ein Kreis ist in einer MCB enthalten gdw. er ist relevant.
+\end{proposition}
+
+\begin{proposition}
+    Seien $ C_1, C_2 $ zwei Kreise.
+    Dann gilt: wenn $ |C_1| + |C_2| = |C_1 \oplus C_2| $, dann ist $ C_1 \oplus C_2 $ nicht relevant.
+\end{proposition}
+
+\begin{proposition}
+    Ist ein Kreis relevant, dann ist er auch elementar.
+\end{proposition}
+
+\begin{definition}[Essentiell]
+    Ein Kreis $ C $ ist essentiell, falls er in jeder MCB enthalten ist.
+\end{definition}
+
+\begin{proposition}
+    Existiert zu einer Kante $ e $ ein eindeutiger Kreis minimaler Länge ist, der $ e $ enthält, dann ist dieser Kreis essentiell.
+\end{proposition}
+
+\begin{definition}[Chord-less]
+    Ein Kreis $ C $ heißt \textit{chord-less}, falls er keine zwei Knoten $ v_1, v_2 $ enthält, mit $ \{ v_1, v_2 \} \in E \setminus C $.
+\end{definition}
+
+\begin{proposition}
+    Ist ein Kreis relevant, dann ist er auch chord-less.
+\end{proposition}
+
+\begin{definition}[Isometrie]
+    Ein Kreis $ C $ ist isometrisch, falls er zwei Knoten $ v_1, v_2 $ enthält, sodass ein kürzester Weg $ P^* $ zwischen $ v_1 $ und $ v_2 $ existiert, sodass $ P^* \subseteq C $.
+\end{definition}
+
+\begin{lemma}
+    Sei $ M $ eine MCB.
+    $ M_i(M) $ bezeichne die Anzahl der Kreise der Länge $ i $ in $ M $.
+    Es gilt offensichtlich $ \sum^{|V|}_{i = 3} M_i(M) \cdot i = \sum_{C \in M} |C| $.
+
+    Darüber hinaus gilt, dass $ M_i(M) = M_i(M') $ für eine zweite MCB $ M' $ mit $ M \ne M' $.
+\end{lemma}
+
+\begin{remark}
+    Nicht nur die Anzahl der Kanten, die insgesamt in der MCB sind, sondern auch die Anzahl der Kreise pro Länge ist somit fixiert.
+\end{remark}
+
+\begin{proof}
+    Betrachte zwei MCBs $ M = (C_1, C_2, \dots, C_k) $ und $ M' = (C_1', C_2', \dots, C_k') $ als Folgen von nach Länge aufsteigend sortierten Kreisen.
+    Angenommen, es ex. o.B.d.A. ein Index $ i $ mit $ |C_i'|<|C_i| $.
+    Wähle $ i $ minimal.
+
+    Seien:
+    \begin{itemize}
+        \item $ B = { C_1, C_2, \dots, C_{i - 1} } $
+        \item $ A = { C_1', C_2', \dots, C_i' } $
+    \end{itemize}
+
+    Betrachte das Vektormatroid $ I $ zum Kreisvektorraum $ \mathcal{C}(G) $.
+    Es gilt $ A, B \in I $, da beide Mengen jeweils linear unabhängig.
+    Da $ I $ ein Matroid ist und $ |B| < |A| $ somit auch $ B \cup \{ C_i' \} \in I $
+\end{proof}

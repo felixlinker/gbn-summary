@@ -1,0 +1,35 @@
+\chapter{Grundlegende Definitionen}
+
+Im folgenden Sei $ G = (V, E) $ ein fixierter Graph.
+
+\begin{definition}[Abstand]
+    Der \textit{Abstand} zwischen zwei Knoten $ v_1, v_2 \in V $ ist die Länge des kürzesten Pfades zwischen diesen Knoten.
+    Existiert kein solcher Pfad, gilt $ d(v_1, v_2) = \infty $.
+\end{definition}
+
+\begin{observation}
+    $ d : V \times V \rightarrow \nats $ ist eine Metrik:
+    \begin{enumerate}
+        \item $ d(v_1, v_2) = 0 $
+        \item $ d(v_1, v_2) = d(v_2, v_1) $
+        \item $ d(v_1, v_3) \leq d(v_1, v_2) + d(v_2, v_3) $
+        \item $ 0 \leq d(v_1, v_2) $
+    \end{enumerate}
+\end{observation}
+
+\begin{definition}[Durchmesser]
+    Der \textit{Durchmesser} $ D $ von $ G $ ist definiert als:
+    \begin{equation*}
+        D = \max_{v_1, v_2 \in V} d(v_1, v_2)
+    \end{equation*}
+
+    D.h., der Durchmesser ist die Länge des längsten kürzesten Wegs in einem Graphen.
+\end{definition}
+
+\begin{definition}[Verbundenheit]
+    $ G $ ist verbunden, falls für alle Knoten $ v_1, v_2 \in V $ gilt, dass $ d(v_1, v_2) < \infty $, d.h. zwischen allen Knoten existiert ein Pfad.
+\end{definition}
+
+\begin{definition}[$ k $-(vertex-)Verbundenheit]
+    $ G $ ist $ k $-(vertex-)verbunden, falls eine Knotenmenge $ K \subseteq V $ mit $ |K| = k $ existiert, sodass $ G|_{V \setminus K} $ nicht mehr verbunden ist und $ G $ nicht $ k' $-verbunden für $ k' < k $ ist.
+\end{definition}
