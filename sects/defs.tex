@@ -30,6 +30,18 @@ Im folgenden Sei $ G = (V, E) $ ein fixierter Graph.
     $ G $ ist verbunden, falls für alle Knoten $ v_1, v_2 \in V $ gilt, dass $ d(v_1, v_2) < \infty $, d.h. zwischen allen Knoten existiert ein Pfad.
 \end{definition}
 
+\begin{definition}[Cut vertex]
+    $ v \in V $ ist ein cut vertex, falls $ (V \setminus \{ v \}, E) $ mehr Zusammenhangskomponenten als $ G $ hat.
+\end{definition}
+
 \begin{definition}[$ k $-(vertex-)Verbundenheit]
     $ G $ ist $ k $-(vertex-)verbunden, falls eine Knotenmenge $ K \subseteq V $ mit $ |K| = k $ existiert, sodass $ G|_{V \setminus K} $ nicht mehr verbunden ist und $ G $ nicht $ k' $-verbunden für $ k' < k $ ist.
+\end{definition}
+
+\begin{proposition}
+    $ G $ ist 2-verbunden gdw. $ G $ ist verbunden und enthält keinen cut vertex.
+\end{proposition}
+
+\begin{definition}[Block]
+    $ B = (V_B, E_B) \subseteq G $ ist ein Block, falls $ B $ maximal 2-verbunden ist.
 \end{definition}
