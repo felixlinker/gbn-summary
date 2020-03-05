@@ -1,0 +1,175 @@
+\chapter{Zufällige Graphen}
+
+Im folgenden sei $ \mathcal{G} $ die Menge aller Graphen und $ G = (V, E) $ mit $ V = \{ 0, \dots, n - 1 \} $ ein fixierter Graph.
+
+\begin{definition}
+    Sei $ V $ eine Menge von Knoten.
+    \begin{equation*}
+        [V]^2 = \{ \{ v_1, v_2 \} \mid v_1, v_2 \in V \}
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Elementares Ereignis]
+    Sei die Menge an Knoten $ V $ fixiert und $ G_0 $ ein fixierter Graph mit den Knoten $ V $ und $ m $ Kanten.
+    Dann ist $ \{ G_0 \} $ das sog. \textit{elementare Ereignis}.
+
+    Sei $ p \in [0, 1]$ die Wahrscheinlichkeit, eine Kante $ e \in E \subseteq [V]^2 $ zu auszuwählen.
+    Dann gilt:
+    \begin{equation*}
+        P(\{ G_0 \}) = p^m \cdot (1 - p)^{\binom{n}{2} - m}
+    \end{equation*}
+\end{definition}
+
+Im folgenden gelte $ q = 1 - p $.
+
+\begin{definition}
+    Sei $ e \in [V]^2 $.
+    Definiere den Wahrscheinlichkeitsraum $ \Omega_e = \{ 0_e, 1_e \} $ mit:
+    \begin{itemize}
+        \item $ P(\{ 1_e \}) = p $ und
+        \item $ P(\{ 0_e \}) = 1 - p = q $.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    $ \mathcal{G} = \mathcal{G}(n, p) $ bezeichne den Produktraum über
+    \begin{align*}
+        \Omega &= \prod_{e \in [V]^2} \Omega_e \\
+        &= \{ 0_0, 1_0 \} \times \{ 0_1, 1_1 \} \times \dots
+    \end{align*}
+
+    Interpretiere dabei $ \omega \in \Omega $ als Funktion, d.h. $ \omega : [V]^2 \rightarrow \{ 0, 1 \} $.
+    $ \omega $ korrespondiert zu dem Graphen $ G_\omega = (V, \{ e \mid \omega(e) = 1 \}) $.
+\end{definition}
+
+\begin{remark}
+    Das Ziehen einer Menge von Graphen über $ n $ Knoten mit der Kanten-Wahrscheinlichkeit $ p $ ist ein Ereignis in $ \mathcal{G}(n, p) $.
+
+    Insbesondere für $ e \in [V]^2 $ ist $ A_e = \{ \omega \in \Omega \mid \omega(e) = 1 \} $ ein Ereignis.
+\end{remark}
+
+\begin{proposition}
+    Für $ e \in [V]^2 $ ist $ A_e $ unabhängig.
+\end{proposition}
+
+\begin{proof}
+    Es ist offensichtlich, dass $ A_e = \{ 1_e \} \times \prod_{e' \in [V]^2, e' \ne e} \Omega_{e'} $.
+    Es gilt:
+    \begin{align*}
+        P(A_e) &= p \cdot \prod_{e' \in [V]^2, e' \ne e} 1 \\
+        &= p
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    Ähnliches gilt für $ \{ e_1, \dots, e_k \} \subseteq [V]^2 $.
+    Dann ist $ P(A_{\{ e_1, \dots, e_k \}}) = P(A_{e_1} \cap \dots \cap A_{e_k}) = p^k $.
+\end{remark}
+
+\begin{proposition}
+    Sei $ H = (V_H, E_H)$ ein fixierter Graph mit $ |V_H| \leq |V| $ und $ |E_H| \leq |E| $.
+
+    Für die Wahrscheinlichkeit $ P(H \subseteq G) $, dass $ G $ zufällig gezogen wird mit $ H \subseteq G $, gilt: $ P(H \subseteq G) = p^{|E_H|} $.
+
+    Für die Wahrscheinlichkeit $ P(H = G[V_H]) $, dass $ G $ zufällig gezogen wird mit $ H = G[V_H] $, gilt $ P(H = G[V_H]) = p^{|E_H|} \cdot (1 - p)^{\binom{|V_H|}{2} - |E_H|} $.
+\end{proposition}
+
+\begin{definition}[Unabhängige Mengen]
+    Eine Menge $ M \subseteq V $ ist unabhängig, falls $ \forall v_1, v_2 \in M: \{ v_1, v_2 \} \notin E $.
+\end{definition}
+
+\begin{definition}[Independence Number]
+    Die independence number $ \alpha(G) $ ist die maximale Anzahl unabhängiger Knoten, d.h. die Kardinalität der größten unabhängigen Menge in $ G $.
+\end{definition}
+
+\begin{lemma}
+    \label{lem:independent-prob}
+    Für alle $ n, k \in \nats $ mit $ 2 \leq k \leq n $ gilt für die Wahrscheinlichkeit $ P(\alpha(G) \geq k) $, dass ein zufälliger Graph $ G $ aus $ \mathcal{G}(n, p) $ mindestens eine Menge von $ k $ unabhängigen Knoten besitzt:
+    \begin{equation*}
+        P(\alpha(G) \geq k) \leq \underbrace{\binom{n}{k}}_{\text{Anzahl Teilmengen}} \cdot \underbrace{(1 - p)^{\binom{k}{2}}}_{\text{Teilmenge ist unabhängig}}
+    \end{equation*}
+\end{lemma}
+
+\begin{lemma}
+    Mit $ k \leq n $ gilt für die Wahrscheinlichkeit $ P(K_k \subseteq G) $, dass ein zufälliger Graph $ G $ $ K_k $ als Teilgraphen hat, d.h., dass die Anzahl Knoten in der größten Clique von $ G $ $ cli(G) $ größer gleich $ k $ ist:
+    \begin{equation*}
+        P(K_k \subseteq G) = P(cli(G) \geq k) \leq \binom{n}{k} \cdot p^{\binom{k}{2}}
+    \end{equation*}
+\end{lemma}
+
+\begin{lemma}
+    Für $ k \leq n $ gilt: Falls $ P(\alpha(G) \geq k) + P(cli(G) \geq k) < 1 $, dann gibt es Graphen $ G $ ohne entsprechende Clique \textit{und} unabhängige Menge über $ V $.
+\end{lemma}
+
+\begin{definition}
+    Sei $ X_k : \mathcal{G}(n, p) \rightarrow \nats $ die Zufallsvariable, die einem Graphen über $ V $ die Anzahl an $ k $-Kreisen zuweist.
+\end{definition}
+
+\begin{proposition}
+    Sei $ \mathcal{C}_k $ die Menge aller $ k $-Kreise in $ G $ modulo Isomorphie.
+    Sei:
+    \begin{equation*}
+        (n)_k = \prod_{0 \leq i \leq k - 1} (n - i) = n \cdot (n - 1) \cdot \dots \cdot (n - k + 1)
+    \end{equation*}
+    $ (n)_k $ ist die Anzahl an Möglichkeiten, $ k $ unterschiedliche Knoten in $ V $ zu wählen.
+    Des Weiteren gibt es zu jedem $ k $-langen Kreis $ 2k $-viele Isomorphie Kreise.
+
+    Es gilt somit:
+    \begin{equation*}
+        |\mathcal{C}_k| = \frac{(n)_k}{2k}
+    \end{equation*}
+\end{proposition}
+
+\begin{proposition}
+    Der Erwartungswert von $ X_k $ ist:
+    \begin{equation*}
+        E(X_k) = \frac{(n)_k}{2k} \cdot p^k
+    \end{equation*}
+\end{proposition}
+
+\subsection{Färben zufälliger Graphen}
+
+\begin{proposition}
+    Sei $ p \in (0, 1) $ und $ \epsilon > 0 $.
+    Dann gilt, für fast jeden Graph $ G \in \mathcal{G}(n, p) $:
+    \begin{equation*}
+        \chi(G) > \frac{\log(\frac{1}{q})}{2 + \epsilon} \cdot \frac{n}{\log(n)}
+    \end{equation*}
+\end{proposition}
+
+\begin{proof}
+    Für $ 2 \leq k \leq n $ gilt nach Lemma \ref{lem:independent-prob}:
+    \begin{align*}
+        P(\alpha(G) \geq k) & \leq \binom{n}{k} q^{\binom{k}{2}} \\
+        & \leq n^k \cdot q^{\binom{k}{2}} \\
+        &= q^{k \cdot \frac{\log(n)}{\log(q)} + \frac{1}{2}k(k - 1)} \\
+        &= q^{\frac{k}{2} \cdot (-2 \frac{\log(n)}{\log(q^{-1})} + k - 1)}
+    \end{align*}
+
+    Für $ k := 2 + \epsilon \frac{\log(n)}{\log(q^{-1})} $ gilt $ \frac{k}{2} \cdot (-2 \frac{\log(n)}{\log(q^{-1})} + k - 1) $ geht gegen $ \infty $ für $ n \rightarrow \infty $.
+
+    Somit gilt für fast jeden Graphen $ G \in \mathcal{G}(n, p) $: In irgendeiner Färbung von $ G $ gibt es keine $ k $ Knoten derselben Farbe.
+
+    Somit sind mehr als $ \frac{n}{k} = \frac{\log(q^{-1})}{2 + \epsilon} \cdot \frac{n}{\log(n)} $ Farben nötig.
+\end{proof}
+
+\subsection{Eigenschaften fast aller Graphen}
+
+\begin{proposition}
+    Für $ p \in (0, 1) $ und einen fixen Graph $ H $ gilt, fast jeder Graph $ G \in \mathcal{G}(n, p) $ enthält einen induzierten Graph $ H $.
+\end{proposition}
+
+\begin{proof}
+    Sei $ H $ gegeben und $ k = |H| $.
+    Wenn $ n = |V| \geq k $ und $ U \subseteq V $ mit $ |U| = k $, dann ist $ H $ isomorph zu $ G[U] $ mit Wahrscheinlichkeit $ r > 0 $.
+    $ r $ hängt von $ p $, aber nicht $ n $ ab, da $ U $ fixiert.
+    $ G $ besteht aus $ \lfloor \frac{n}{k} \rfloor $ vielen disjunkten Mengen $ U $.
+
+    Die Wahrscheinlichkeit, dass keiner dieser induzierten Graphen $ G[U_i] $ isomorph zu $ H $ ist, ist $ (1 - r)^{\lfloor \frac{n}{k} \rfloor} $.
+    Diese Ereignisse sind unabhängig, da $ U_i $ paarweise disjunkt.
+
+    Es gilt:
+    \begin{equation*}
+        P(H \not \subseteq G[U_i], i \in [1, \lfloor \frac{n}{k} \rfloor]) \leq (1 - r)^{\frac{n}{k}} \xrightarrow[n \to \infty]{} 0
+    \end{equation*}
+\end{proof}
