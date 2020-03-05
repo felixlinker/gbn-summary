@@ -19,6 +19,13 @@ Im folgenden Sei $ G = (V, E) $ ein fixierter Graph.
     \end{itemize}
 \end{definition}
 
+\begin{definition}[Grad]
+    Der \textit{Grad} $ \deg(v) $ eines Knoten $ v \in V $ ist die Anzahl der mit ihm in Verbindung stehender Knoten, d.h. $ \deg(v) = |\{ w \mid \{ v, w \} \in E \}| $.
+
+    Der \textit{maximale Grad} $ \Delta(G) $ eines Graphen ist $ \max_{v \in V} \deg(v) $.
+    Der \textit{minimale Grad} $ \delta(G) $ eines Graphen ist $ \min_{v \in V} \deg(v) $.
+\end{definition}
+
 \begin{definition}[Abstand]
     Der \textit{Abstand} zwischen zwei Knoten $ v_1, v_2 \in V $ ist die Länge des kürzesten Pfades zwischen diesen Knoten.
     Existiert kein solcher Pfad, gilt $ d(v_1, v_2) = \infty $.
@@ -51,8 +58,12 @@ Im folgenden Sei $ G = (V, E) $ ein fixierter Graph.
     $ v \in V $ ist ein cut vertex, falls $ G \setminus \{ v \} $ mehr Zusammenhangskomponenten als $ G $ hat.
 \end{definition}
 
+\begin{definition}[Cutset]
+    $ V_1 \subsetneq V $, falls $ G \setminus V_1 $ mehr Zusammenhangskomponenten als $ G $ hat.
+\end{definition}
+
 \begin{definition}[$ k $-(vertex-)Verbundenheit]
-    $ G $ ist $ k $-(vertex-)verbunden, falls eine Knotenmenge $ K \subseteq V $ mit $ |K| = k $ existiert, sodass $ G \setminus K $ nicht mehr verbunden ist und $ G $ nicht $ k' $-verbunden für $ k' < k $ ist.
+    $ G $ ist $ k $-(vertex-)verbunden, falls eine Knotenmenge $ K \subseteq V $ mit $ |K| = k $ existiert, sodass $ G \setminus K $ nicht mehr verbunden ist und $ G $ nicht $ k' $-verbunden für $ k' < k $ ist, d.h. jedes cutset hat mindestens $ k $ Elemente.
 \end{definition}
 
 \begin{proposition}
@@ -61,4 +72,17 @@ Im folgenden Sei $ G = (V, E) $ ein fixierter Graph.
 
 \begin{definition}[Block]
     $ B = (V_B, E_B) \subseteq G $ ist ein Block, falls $ B $ maximal 2-verbunden ist.
+\end{definition}
+
+\begin{definition}[Blockgraph]
+    $ G_B $ von $ G $, sodass ein Knoten in $ G_B $ einen Block in $ G $ repräsentiert.
+    Zwei Blöcke sind in $ G_B $ miteinander verbunden, falls eine Kante zwischen zwei Knoten der Blöcke in $ G $ existiert.
+\end{definition}
+
+\begin{proposition}
+    Jeder Blockgraph ist ein Baum bzw. Wald.
+\end{proposition}
+
+\begin{definition}[End Block]
+    Ein Knoten $ v \in V_B $ in einem Blockgraphen $ G_B = (V_B, E_B) $ ist ein end block, falls $ \deg(v) \leq 1 $, d.h. $ v $ ist ein Blatt im Blockgraph.
 \end{definition}
