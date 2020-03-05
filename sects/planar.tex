@@ -70,7 +70,7 @@
         Sei $ e \in E $ eine Kante auf einem Kreis.
         $ e $ liegt damit auf der Grenze zweier Facetten $ f_1 $, $ f_2 $.
 
-        Sei $ G' = (V, E \setminus \{ e \}) $.
+        Sei $ G' = G \setminus \{ e \} $.
         Dann ex. eine Facette $ f_e $ von $ G' $, die $ f_1 $ und $ f_2 $ enthält.
         $ G' $ hat also eine Kante und damit eine Facette weniger als $ G $.
         Somit gilt nach IV:
@@ -97,8 +97,8 @@
 \begin{definition}[Graph-Mimor/Subdivision]
     Ein Graph $ H $ ist ein Mimor von $ G = (V, E) $, falls:
     \begin{itemize}
-        \item $ H $ durch Löscher einer Kante entstanden ist, d.h. $ H = (V, E \setminus \{ e \}) $ für ein $ e \in E $,
-        \item $ H $ durch Löschen eines Knoten entstanden ist, d.h. $ H = G|_{V \setminus \{ v \}} $ für ein $ v \in V $, oder
+        \item $ H $ durch Löscher einer Kante entstanden ist, d.h. $ H = G \setminus \{ e \} $ für ein $ e \in E $,
+        \item $ H $ durch Löschen eines Knoten entstanden ist, d.h. $ H = G \setminus \{ v \} $ für ein $ v \in V $, oder
         \item $ H $ durch Kontraktion einer Kante entstanden ist, d.h. für eine Kante $ e = \{ x, y \} \in E $ ist $ H = (V \cup \{ w \}, E \setminus \{ e \} \cup \{ \{ a, w \} \mid \{ a, x \} \in E \lor \{ a, y \} \in E \}) $.
     \end{itemize}
 \end{definition}
@@ -180,7 +180,7 @@
         Dann ist $ G $ nicht mehr 2-verbunden und besteht aus zwei Blöcken.
         Widerspruch zur Minimalität von $ G $.
 
-        Es gilt: Es ex. Kante $ e = \{ u, v \} \in E $ mit $ H = (V, E \setminus \{ e \}) $ ist 2-verbunden, d.h. es gibt einen Kreis $ C $, der $ u $ und $ v $ abdeckt, aber nicht $ e $ enthält. (Hier ohne Beweis.)
+        Es gilt: Es ex. Kante $ e = \{ u, v \} \in E $ mit $ H = G \setminus \{ e \} $ ist 2-verbunden, d.h. es gibt einen Kreis $ C $, der $ u $ und $ v $ abdeckt, aber nicht $ e $ enthält. (Hier ohne Beweis.)
 
         Da $ G $ minimal gewählt, sodass $ G $ nicht planar, muss $ H $ planar sein.
         Bette $ H $ derart in die Ebene ein, dass gilt:

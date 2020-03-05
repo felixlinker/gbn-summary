@@ -1,6 +1,23 @@
 \chapter{Grundlegende Definitionen}
 
+\begin{definition}[Graph]
+    Ein Graph $ G = (V, E) $ ein Tupel einer endlichen Knotenmenge $ V $ und einer endlichen Kantenmenge $ E \subseteq \{ \{ v, w \} \mid v, w \in V \} $.
+\end{definition}
+
 Im folgenden Sei $ G = (V, E) $ ein fixierter Graph.
+
+\begin{definition}
+    Seien $ V_1 \subseteq V $, $ E_1 \subseteq E $ und $ G' = (V', E') $ ein Graph.
+    Es seien:
+    \begin{itemize}
+        \item $ G[V_1] = (V_1, E \cap V_1 \times V_1) $ der von $ V_1 $ \textit{induzierte Teilgraph} von $ G $,
+        \item $ G \setminus V_1 = G[V \setminus V_1] $ und
+        \item $ G \setminus E_1 = (V, E \setminus E_1) $.
+        \item $ G \setminus G' = (G \setminus V') \setminus E' $.
+        \item $ G \cup G' = (V \cup V', E \cup E') $.
+        \item $ G \cap G' = (V \cap V', E \cap E') $.
+    \end{itemize}
+\end{definition}
 
 \begin{definition}[Abstand]
     Der \textit{Abstand} zwischen zwei Knoten $ v_1, v_2 \in V $ ist die Länge des kürzesten Pfades zwischen diesen Knoten.
@@ -31,11 +48,11 @@ Im folgenden Sei $ G = (V, E) $ ein fixierter Graph.
 \end{definition}
 
 \begin{definition}[Cut vertex]
-    $ v \in V $ ist ein cut vertex, falls $ (V \setminus \{ v \}, E) $ mehr Zusammenhangskomponenten als $ G $ hat.
+    $ v \in V $ ist ein cut vertex, falls $ G \setminus \{ v \} $ mehr Zusammenhangskomponenten als $ G $ hat.
 \end{definition}
 
 \begin{definition}[$ k $-(vertex-)Verbundenheit]
-    $ G $ ist $ k $-(vertex-)verbunden, falls eine Knotenmenge $ K \subseteq V $ mit $ |K| = k $ existiert, sodass $ G|_{V \setminus K} $ nicht mehr verbunden ist und $ G $ nicht $ k' $-verbunden für $ k' < k $ ist.
+    $ G $ ist $ k $-(vertex-)verbunden, falls eine Knotenmenge $ K \subseteq V $ mit $ |K| = k $ existiert, sodass $ G \setminus K $ nicht mehr verbunden ist und $ G $ nicht $ k' $-verbunden für $ k' < k $ ist.
 \end{definition}
 
 \begin{proposition}
