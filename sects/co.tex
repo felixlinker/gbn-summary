@@ -1,0 +1,75 @@
+\chapter{Co-Graphen}
+
+\begin{definition}[Disjunkte Vereinigung]
+    Seien $ G = (V_G, E_G), H = (V_H, E_H) $ Graphen.
+    Definiere die \textit{disjunkte Vereinigung} $ \discup $ zweier Graphen als:
+    \begin{equation*}
+        G \discup H = \big(V_G \discup V_H, E_G \discup E_H\big)
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Join]
+    Seien $ G = (V_G, E_G), H = (V_H, E_H) $ Graphen.
+    Definiere den \textit{Join} $ \join $ zweier Graphen als:
+    \begin{align*}
+        G \join H = (& V_G \discup V_H, \\
+        & E_G \discup E_H \cup \{ \{ x, y \} \mid x \in V_G, y \in V_H \})
+    \end{align*}
+\end{definition}
+
+\begin{definition}[Komplement]
+    Definiere das \textit{Komplement} $ \overline{\circ} $ eines Graphen als:
+    \begin{equation*}
+        \overline{G} = (V, (V \times V) \setminus E)
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Co-Graphen]
+    Die Menge der Co-Graphen $ \mathcal{C} $ sei induktiv definiert als die kleinste Menge, für die gilt:
+    \begin{enumerate}
+        \item $ K_1 \in \mathcal{C} $;
+        \item wenn $ G, H \in \mathcal{C} $, dann \begin{enumerate}
+            \item $ G \discup H \in \mathcal{C} $ und
+            \item $ G \join H \in \mathcal{C} $.
+        \end{enumerate}
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    $ G $ ist ein Co-Graph gdw. $ \overline{G} $ ist ein Co-Graph.
+\end{proposition}
+
+\begin{definition}[Test auf Co-Graphen]~\par
+    \begin{enumerate}
+        \item \label{itm:co-alg-rec}
+        Bilde zu jeder Zusammenhangskomponente von $ G $ das Komplement.
+        \item Sind nicht alle nun bestehenden Zusammenhangskomponente isomorph zu $ K_1 $, gehe zu \ref{itm:co-alg-rec}.
+    \end{enumerate}
+
+    Dieser Algorithmus zerlegt einen Graphen sukzessive in einem Baum von Zusammenhangskomponenten, den sog. \textit{Co-Tree}.
+\end{definition}
+
+\begin{proposition}[Charakterisierung von Co-Graphen]
+    Sei $ P_4 = (\{ 0, \dots, 3 \}, \{ \{ i, i + 1\} \mid 0 \leq i < 3 \}) $.
+    $ G $ ist ein Co-Graph gdw. er enthält keinen $ P_4 $.
+\end{proposition}
+
+\begin{proposition}
+    $ P_4 $ ist 2-färbbar.
+\end{proposition}
+
+\begin{definition}[Grundy-Zahl]
+    Die \textit{Grundy-Zahl} eines Graphen $ G $ ist die Zahl der Farben, die bei einer Greedy-Färbung benötigt wird.
+\end{definition}
+
+\begin{definition}[Wohl-färbbar]
+    Ein Graph $ G $ ist \textit{wohl-färbbar}, falls seine Grundy-Zahl gleich $ \chi(G) $.
+\end{definition}
+
+\begin{proposition}
+    $ G $ ist wohl-färbbar gdw. $ G $ ist ein Co-Graph.
+\end{proposition}
+
+\begin{proposition}
+    Jeder induzierte Teilgraph eines Co-Graphen ist wieder ein Co-Graph.
+\end{proposition}
