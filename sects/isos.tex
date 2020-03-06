@@ -1,0 +1,142 @@
+\chapter{Graph Isomorphismen}
+
+\begin{definition}[Baum]
+    Sei $ T = (V, E) $ ein verbundener, azyklischer Graph.
+    Dann ist $ T $ ein Baum.
+\end{definition}
+
+\begin{definition}[Gewurzelter Baum]
+    Sei $ T = (V, E) $ ein Baum und $ r \in V $.
+    Dann ist $ T_r = (V, E, r) $ ein gewurzelter Baum mit der \textit{Wurzel} $ r $.
+\end{definition}
+
+\begin{definition}[Geordneter Baum]
+    Sei $ T = (V, E, r) $ ein gewurzelter Baum und sie $ \preceq \; \subseteq V \times V $ eine lineare Ordnungsrelation.
+    Dann ist $ T = (V, E, r, \preceq) $ ein geordneter Baum mit der \textit{sibbling order} $ \preceq $.
+\end{definition}
+
+\begin{definition}[Graph Isomorphismus]
+    Seien $ G = (V_G, E_G) $, $ H = (V_H, E_H) $ zwei Graphen.
+    Eine bijektive Funktion $ \hat{\chi} : V_G \rightarrow V_H $ ist ein Isomorphismus, falls $ \{ x, y \} \in E_G \Leftrightarrow \{ \hat{\chi}(x), \hat{\chi}(y) \} \in E_H $.
+
+    $ \hat\chi $ ist ein Isomorphismus auf den gewurzelten Bäumen $ G $, $ H $ mit den Wurzeln $ r_G $ und $ r_H $, falls zusätzlich $ r_h = \hat\chi(r_G) $ gilt.
+
+    $ \hat\chi $ ist ein Isomorphismus auf den geordneten Bäumen $ G $, $ H $ mit den sibbling orders $ \preceq_G $, $ \preceq_H $, falls zusätzlich $ x \preceq_G y \Leftrightarrow \hat\chi(x) \preceq_H \hat\chi(y) $.
+\end{definition}
+
+\begin{definition}[Codes]
+    Sei $ T = (V, E, r, \preceq) $ ein geordneter Baum.
+    Definiere den \textit{Code} $ c(T) \in \{ 0, 1 \}^* $ von $ T $ rekursiv wie folgt:
+    \begin{enumerate}
+        \item Ist $ v \in V $ ein Blatt in $ T $, setze $ c(v) = 01 $.
+        \item \label{itm:code-rec}
+        Sei $ v \in V $ mit Kindern $ v_1 \preceq \dots \preceq v_n $.
+        Dann setze $ c(v) = 0 \cdot c(v_1) \cdot \dots \cdot c(v_n) \cdot 1 $.
+        \item Definiere schlussendlich $ c(T) = c(r) $.
+    \end{enumerate}
+
+    Für Bäume ohne Ordnung, modifiziere den Rekursionsschritt \ref{itm:code-rec} so, dass die Kinder eines Knotens nicht nach $ \preceq $, sondern lexikographisch geordnet werden.
+\end{definition}
+
+\begin{definition}[Excentricity]
+    Sei $ G = (V, E) $ ein Graph.
+    Definiere $ ex_T(v) $, $ v \in V $ als die Länge des längsten Pfades zu einem beliebigen, anderen Knoten $ v' \in V $.
+\end{definition}
+
+\begin{remark}
+    In einem balancierten Baum hat die Wurzel, d.h. der zentrale Knoten, die kleinste excentricity.
+    Generell haben in Bäumen Blätter die größte excentricity.
+\end{remark}
+
+\begin{definition}[Zentrum]
+    Definiere das Zentrum $ C(G) $ eines Graphen $ G = (V, E) $ als die Menge an Knoten $ \argmin_{v \in V} ex_G(v) $.
+\end{definition}
+
+\begin{lemma}
+    Sei $ T = (V, E) $ ein Baum.
+    Dann gilt $ |C(T)| \leq 2 $ und, wenn $ C(T) = \{ x, y \} $, dann $ \{ x, y \} \in E $.
+\end{lemma}
+
+\begin{proof}
+    Konstruiere das Zentrum algorithmisch.
+    \begin{enumerate}
+        \item Falls $ |V| \leq 2 $, trivial.
+        \item Konstruiere $ T' = (V', E')$ als:
+        \begin{itemize}
+            \item $ V' = \{ x \in V \mid \deg_T(x) > 1 \} $
+            \item $ E' = E \cap V' \times V' $
+        \end{itemize}
+        Es gilt nun, dass $ V' \ne \emptyset $, da $ 2 < |V| $ und $ T $ verbunden.
+        Außerdem gilt:
+        \begin{itemize}
+            \item $ ex_T(v) = ex_{T'}(v) + 1 $
+            \item $ C(T) = C(T') $
+        \end{itemize}
+    \end{enumerate}
+
+    Dieser Algorithmus endet notwendig im leeren Baum.
+    Der vorherige Baum hatte entweder einen Knoten und keine Kante, oder zwei Knoten mit einer Kante.
+\end{proof}
+
+\begin{definition}[Code für Bäume]
+    Über das Zentrum eines Graphen kann nun der Code für allgemeine Bäume definiert werden.
+
+    Sei $ T $ ein Baum.
+    \begin{enumerate}
+        \item Angenommen $ C(T) = \{ v \} $, dann wähle $ v $ als Wurzel und kodiere $ T $ wie einen gewurzelten Baum.
+        \item Angenommen $ C(T) = \{ v_1, v_2 \} $.
+        Seien $ T_{v_1} $, $ T_{v_2} $ die Teilbäume von $ T \setminus \{\{ v_1, v_2 \}\}$, die $ v_1 $ bzw. $ v_2 $ enthalten.
+        Kodiere diese wie gewurzelte Bäume.
+
+        Wähle $ v_1 $ als Wurzel, falls $ c(T_{v_1}) $ lexikographisch kleiner gleich $ c(T_{v_2}) $, $ v_2 $ sonst und kodiere wie gewurzelten Baum.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Match]
+    Seien $ G_1 = (V_1, E_2) $, $ G_2 = (V_2, E_2) $ zwei gelabelte Graphen mit je einer Knoten-Labeling-Funktion $ \alpha_1 $ bzw. $ \alpha_2 $ und einer Kanten-Labeling-Funktion $ \beta_1 $ bzw. $ \beta_2 $.
+    Ein \textit{Match} $ M \subseteq V_1 \times V_2 $ ist eine Menge, für die gilt:
+    \begin{enumerate}
+        \item \label{itm:match-bij}
+        $ M $ ist bijektiv im eigenen Wertebereich.
+        \item Wenn $ (x_1, y_1), (x_2, y_2) \in M $, dann $ \{ x_1, x_2 \} \in E_1 \Leftrightarrow \{ y_1, y_2 \} \in E_2 $.
+        \item Wenn $ (x, y) \in M $, dann $ \alpha_1(x) = \alpha_2(y) $.
+        \item Wenn $ (x_1, y_1), (x_2, y_2) \in M $, dann $ \beta_1(\{ x_1, x_2 \}) = \beta_2(\{ y_1, y_2 \}) $.
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    Sei $ M $ ein Match auf $ G_1 $, $ G_2 $.
+    Dann gilt nach \ref{itm:match-bij}, dass:
+    \begin{align*}
+        (x, y), (x', y) \in M & \Rightarrow x = x' \\
+        (x, y), (x, y') \in M & \Rightarrow y = y'
+    \end{align*}
+\end{proposition}
+
+\begin{definition}[VF2 Algorithmus]
+    Input: Graphen $ G_1 = (V_1, E_2) $, $ G_2 = (V_2, E_2) $ und Match $ M $, Kandidatenmenge $ P \subseteq V_1 \times V_2 $.
+
+    \begin{enumerate}
+        \item Falls $ M $ vollständig auf $ V_1 $ oder $ V_2 $ definiert ist, gib $ M $ aus.
+        \item \label{itm:vf2-loop}
+        Für jedes Paar $ (x, y) \in P $:
+        \begin{enumerate}
+            \item Falls $ M \cup \{ (x, y) \} $ \textit{zulässig}, setze $ M' := M \cup \{ (x, y) \} $.
+            \item Berechne neue Kandidatenmenge $ P' $.
+            \item Rekursiver Aufruf mit $ M' $ und $ P' $.
+        \end{enumerate}
+    \end{enumerate}
+
+    Initial kann der VF2 Algorithmus mit $ M = \emptyset $ und $ P = V_1 \times V_2 $ aufgerufen werden.
+    $ P $ kann im Algorithmus, bspw. vor Schritt \ref{itm:vf2-loop}, bezüglich \textit{geschickter} Bedingungen eingeschränkt werden, z.~B. so, dass nur Paare von Knoten mit gleichen Vertex Labels betrachtet werden o. Ä.
+\end{definition}
+
+\begin{remark}
+    Wichtigster Punkt des VF2 Algorithmus ist die Definition der \textit{zulässigen} Matchings.
+    Diese Bedingungen müssen monoton sein.
+\end{remark}
+
+\begin{remark}
+    Der VF2 Algorithmus berechnet eine Menge von maximalen, gemeinsamen Teilgraphen, die Laufzeit des Algorithmus ist aber theoretisch exponentiell.
+    Praktisch hat sich dieser Algorithmus jedoch auch auf großen Instanzen bewährt.
+\end{remark}
