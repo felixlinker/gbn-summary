@@ -1,0 +1,75 @@
+\chapter{Distanzen zwischen Graphen}
+
+In diesem Kapitel wird besprochen, wie man möglichst gut die Distanz zwischen zwei Graphen bestimmen kann, d.h. wie unterschiedlich sich die Graphen sind.
+
+\begin{definition}[Distanz über Match]
+    Seien $ G_1 = (V_1, E_1), G_2 = (V_2, E_2) $ zwei Graphen und $ M \subseteq V_1 \times V_2 $ ein Match zwischen den Graphen.
+    Dann lässt sich die Distanz bzgl. $ M $ $ d_M(G_1, G_2) $ zwischen diesen Graphen berechnen als:
+    \begin{align*}
+        d_M(G_1, G_2) = & a_1 \cdot | V_1 \setminus \dom M | + a_2 \cdot |V_2 \setminus \img M| \\
+        + & a_3 \cdot \sum_{(x,y) \in M} \underbrace{\delta_1(x, y)}_{\text{Distanz der Knotenlabel}} \\
+        + & a_3 \cdot \sum_{(x,y), (x',y') \in M} \underbrace{\delta_2\big((x,y), (x', y')\big)}_{\text{Distanz der Kanten}}
+    \end{align*}
+    für vier Konstanten $ a_1, \dots, a_4 \in \reals^+ $.
+
+    Wobei für Kanten-Label-Funktionen $ \beta_1 $ und $ \beta_2 $ und eine Label-Distanz-Funktion $ f $:
+    \begin{equation*}
+        \delta_2((x, y), (x', y')) = \begin{cases}
+            0, & \{ x, x'\} \notin E_1 \land \{ y, y' \} \notin E_2 \\
+            1, & \{ x, x' \} \in E_1 \xor \{ y, y' \} \in E_2 \\
+            f(\beta_1(\{ x, x' \}), \beta_2(\{ y, y' \})), & \{ x, x'\} \in E_1 \land \{ y, y' \} \in E_2
+        \end{cases}
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Graph-Invariante]
+    Sei $ \mathcal{G} $ die Menge aller Graphen.
+    Eine Graph-Invariante ist eine Funktion $ \psi: \mathcal G \rightarrow U $ mit beliebigem Bildbereich $ U $, falls $ G_1 \cong G_2 \Rightarrow \psi(G_1) = \psi(G_2) $.
+\end{definition}
+
+\begin{remark}
+    Je nach Güte der Matches kann die Distanz über Matches eine Metrik darstellen.
+\end{remark}
+
+\begin{example}
+    Beispiele für Graph-Invarianten:
+    \begin{itemize}
+        \item Anzahl Knoten,
+        \item Anzahl Kanten,
+        \item maximaler/minimaler/durchschnittlicher Grad,
+        \item maximale/minimale/durchschnittliche Pfadlänge,
+        \item Anzahl Kreise,
+        \item etc.
+    \end{itemize}
+\end{example}
+
+\begin{definition}[Distanz über Invarianten]
+    Sei $ \Psi = \{ \psi_1, \dots, \psi_k \} $ eine Menge von Graph-Invarianten.
+    Und $ \| \circ \| $ ein Distanzmaß auf den jeweiligen Bildbereichen der Invarianten.
+    Dann sie die Distanz zwischen zwei Graphen über Invarianten definiert als:
+    \begin{equation*}
+        d_\Psi(G_1, G_2) = \sum_{\psi_i \in \Psi} \| \psi_i(G_1) - \psi_i(G_2) \|
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    Ein Distanzmaß über Invarianten ist keine Metrik.
+\end{remark}
+
+\begin{definition}[Distanz über spektrale Invariante]
+    Betrachte das normalisierte Spektrum eines Graphen $ \Lambda $.
+    Bilde die diskrete Menge $ \Lambda $ in einen stetigen Raum ab:
+    \begin{equation*}
+        \zeta(x) = \sum_{\lambda \in \Lambda} e^{-\frac{(x - \lambda)^2}{2\sigma}}
+    \end{equation*}
+    Diese Abbildung ist sinnvoll, sobald man $ \sigma \gg \frac{1}{n} $ wählt.
+
+    Die \textit{spektrale Distanz} zweier Graphen ist dann definiert durch:
+    \begin{equation*}
+        d_{spec}(G_1, G_2) = \int \| \zeta_1(x) \zeta_2(x) \| dx
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    Die Spektrale Distanz ist eine Pseudo-Metrik, d.h. metrisch auf den Äquivalenzklassen isospektraler Graphen.
+\end{remark}
