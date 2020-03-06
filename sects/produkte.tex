@@ -1,0 +1,57 @@
+\chapter{Graph Produkte}
+
+\begin{definition}[Produkt]
+    Seien $ G, H $ Graphen.
+    Definiere $ \boxdot $ Operator:
+    \begin{itemize}
+        \item $ V(G \boxdot H) = V(G) \times V(H) $
+        \item $ \{ (x, y), (u, v) \} \in E(G \boxdot H) $ gdw. \begin{enumerate}
+            \item $ \{ x, u \} \in E(G) $ und $ y = v $ oder
+            \item $ \{ y, v \} \in E(H) $ und $ x = u $.
+        \end{enumerate}
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}
+    Für $ \boxdot $ gilt:
+    \begin{itemize}
+        \item Ein \textit{neutrales Element} existiert: $ G \boxdot K_1 \cong G $
+        \item Assoziativität: $ (G \boxdot H) \boxdot I \cong G \boxdot (H \boxdot I) $
+        \item Kommutativität: $ G \boxdot H \cong H \boxdot G $
+    \end{itemize}
+\end{proposition}
+
+\begin{theorem}
+    Sei $ G $ ein Graph, dann gibt es eine eindeutige Multi-menge von Graphen $ G_i \neq K_i $ mit:
+    \begin{enumerate}
+        \item $ G = \boxdot^k_{i = 1} G_i $ und
+        \item $ G_i $ ist prim, d.h., wenn $ G_i = H_1 \boxdot H_2 $, dann $ H_1 = K_1 $ oder $ H_2 = K_1 $.
+    \end{enumerate}
+\end{theorem}
+
+\begin{definition}[Direktes Produkt]
+    Seien $ G, H $ Graphen.
+    Definiere das \textit{direkte Produkt} $ G \times H $ als:
+    \begin{itemize}
+        \item $ V(G \times H) = V(G) \times V(H) $ und
+        \item $ \{ (x, y), (u, v) \} \in E(G \times H) $ gdw. $ \{ x, u\} \in E(G) \land \{ y, v \} \in E(H) $.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Starkes Produkt]
+    Seien $ G, H $ Graphen.
+    Definiere das \textit{starke Produkt} $ G \boxtimes H $ als:
+    \begin{itemize}
+        \item $ V(G \boxtimes H) = V(G) \times V(H) $ und
+        \item $ E(G \boxtimes H) = E(G \times H) \cup E(G \boxdot H) $.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}
+    Für alle $ p, q \in \nats $ gilt:
+    \begin{equation*}
+        K_p \boxtimes K_q \cong K_{(p \cdot q)}
+    \end{equation*}
+
+    Somit ist $ K_n $ Prim-Graph der vollständigen Graphen bzgl. des starken Produkts gdw. $ n $ ist eine Primzahl.
+\end{proposition}
