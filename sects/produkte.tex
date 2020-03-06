@@ -55,3 +55,20 @@
 
     Somit ist $ K_n $ Prim-Graph der vollständigen Graphen bzgl. des starken Produkts gdw. $ n $ ist eine Primzahl.
 \end{proposition}
+
+\begin{definition}[Modulares Produkt]
+    Seien $ G, H $ Graphen.
+    Definiere das \textit{modulare Produkt} $ G * H $ als:
+    \begin{itemize}
+        \item $ V(G * H) = V(G) \times V(H) $ und
+        \item $ \{ (u, x), (v, y) \} \in E(G * H) $ gdw.
+        \begin{enumerate}
+            \item $ \{ u, v \} \in E(G) $ und $ \{ x, y \} \in E(H) $ oder
+            \item $ \{ u, v \} \notin E(G) $ und $ \{ x, y \} \notin E(H) $.
+        \end{enumerate}
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    Jeder vollständige Teilgraph von $ G * H $ entspricht einem gemeinsamen induzierten Teilgraph von $ G $ und $ H $.
+\end{remark}

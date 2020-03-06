@@ -134,9 +134,58 @@
 \begin{remark}
     Wichtigster Punkt des VF2 Algorithmus ist die Definition der \textit{zulässigen} Matchings.
     Diese Bedingungen müssen monoton sein.
+
+    Sinnvolle Bedingungen sind hier Graph-Invarianten auf Knoten.
 \end{remark}
 
 \begin{remark}
     Der VF2 Algorithmus berechnet eine Menge von maximalen, gemeinsamen Teilgraphen, die Laufzeit des Algorithmus ist aber theoretisch exponentiell.
     Praktisch hat sich dieser Algorithmus jedoch auch auf großen Instanzen bewährt.
 \end{remark}
+
+\begin{definition}[Subgraph-Isomorphie]
+    Seien $ G $, $ H $ zwei Graphen.
+    $ G $ und $ H $ sind Subgraph-Isomorph bzgl. eines Graphen $ K $, $ G' \subseteq G $ und $ H' \subseteq H $, sodass $ K \cong G' \cong H' $ gilt.
+\end{definition}
+
+\begin{definition}[MECS Problem]
+    Das \textit{maximum edges common subgraph}-Problem (MECS) ist ein Optimierungsproblem, bei dem ein bzgl. einer gegebenen Metrik maximaler Subgraph von $ G $ und $ H $ gesucht wird.
+\end{definition}
+
+\begin{definition}[MCIS Problem]
+    Das \textit{maximum common induced subgraph}-Problem ist eine Variante des MECS, bei dem nur induzierte Subgraphen betrachtet werden.
+\end{definition}
+
+\begin{remark}
+    Das MCIS Problem kann gelöst werden, indem Cliquen bzw. Hamiltonsche Pfade im modularen Produkt der beiden Eingabegraphen gesucht werden.
+\end{remark}
+
+\begin{definition}[Line-Graph]
+    Sei $ G = (V, E) $ ein Graph.
+    Der \textit{Line-Graph} $ L[G] = (V_L, E_L) $ von $ G $ ist definiert durch:
+    \begin{itemize}
+        \item $ V_L = E $ und
+        \item $ \{ e, f \} \in E_L $ gdw. $ e \cap f \ne \emptyset $.
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    Das MECS Problem kann gelöst werden, indem das MCIS Problem auf den Line-Graphen der Eingabe gelöst wird.
+\end{remark}
+
+\begin{definition}
+    Definiere die Graphen $ \triangle = (\{ 1, 2, 3 \}, \{ \{ i, j \} \mid 1 \leq i, j \leq 3, i + 1 = j \mod 3 \}) $ und $ Y = (\{ 1, \dots, 4 \}, \{ \{ 1, i \} \mid 2 \leq i \leq 4 \}) $.
+\end{definition}
+
+\begin{remark}
+    $ \triangle $ ist der Dreiecks-Graph und $ Y $ stellt ein Y dar.
+\end{remark}
+
+\begin{theorem}
+    Seien $ G, H $ zwei Graphen.
+    Es gilt $ G \cong H $ gdw.:
+    \begin{enumerate}
+        \item $ \Leftrightarrow L[G] \cong L[H] $ und
+        \item weder $ G $ noch $ H $ enthalten $ \triangle $ oder $ Y $ als Zusammenhangskomponenten.
+    \end{enumerate}
+\end{theorem}
