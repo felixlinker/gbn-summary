@@ -4,7 +4,25 @@
     Ein Graph $ G = (V, E) $ ein Tupel einer endlichen Knotenmenge $ V $ und einer endlichen Kantenmenge $ E \subseteq \{ \{ v, w \} \mid v, w \in V \} $.
 \end{definition}
 
+\begin{definition}[Digraph/Gerichteter Graph]
+    Ein \textit{Digraph} ist ein Tupel $ G = (V, E) $ mit einer endlichen Knotenmenge $ V $ und einer endlichen Kantenmenge $ E \subseteq V \times V $.
+\end{definition}
+
+\begin{remark}
+    Es gibt folgende alternative Graphen-Typen:
+    \begin{itemize}
+        \item Graphen mit Schleifen bzw. Loops
+        \item Graphen mit Mehrfachkanten
+        \begin{itemize}
+            \item Anstelle von einer Menge sind Kanten über eine \textit{tail}-Funktion $ t : E \to V $ und eine \textit{sink}-Funktion $ h : E \to V $ definiert.
+        \end{itemize}
+        \item Hypergraphen (vgl. Kapitel \ref{chpt:hypergraphs})
+        \item Multihypergraphen, d.h. Hypergraphen mit Mehrfachkanten
+    \end{itemize}
+\end{remark}
+
 Im folgenden Sei $ G = (V, E) $ ein fixierter Graph.
+In dieser VL werden (außer im Konkreten angemerkt) nur ungerichtete, schleifenfreie Graphen betrachtet.
 
 \begin{definition}
     Seien $ V_1 \subseteq V $, $ E_1 \subseteq E $ und $ G' = (V', E') $ ein Graph.
@@ -18,6 +36,29 @@ Im folgenden Sei $ G = (V, E) $ ein fixierter Graph.
         \item $ G \cap G' = (V \cap V', E \cap E') $.
     \end{itemize}
 \end{definition}
+
+\begin{definition}[Kantenzug/Walk]
+    Ein \textit{Kantenzug} der Länge $ l $ ist eine Folge $ (x_0, e_1, x_1, e_2, \dots, e_{l - 1}, x_l) $.
+    Ein Kantenzug ist:
+    \begin{itemize}
+        \item \textit{geschlossen}, falls $ x_0 = x_l $,
+        \item ein \textit{Weg}, falls $ e_i \ne e_j $ mit $ i \ne j $,
+        \item ein \textit{Pfad}, falls $ x_i \ne x_j $ mit $ i \ne j $ und
+        \item ein \textit{(elementarer) Kreis}, falls er geschlossen und $ (x_1, e_2, \dots, e_{l - 1}, x_l) $ ein Pfad ist.
+    \end{itemize}
+\end{definition}
+
+\begin{lemma}
+    Seien $ x, y \in V $ mit $ x \ne y $.
+    Dann gilt:
+    \begin{enumerate}
+        \item Ex. Kantenzug von $ x $ nach $ y $ gdw.
+        \item ex. Weg von $ x $ nach $ y $ gdw.
+        \item ex. Pfad von $ x $ nach $ y $.
+    \end{enumerate}
+
+    Gilt zusätzlich $ x \ne y $, dann ex. auch ein Kreis, der $ x $ enthält.
+\end{lemma}
 
 \begin{definition}[Grad]
     Der \textit{Grad} $ \deg(v) $ eines Knoten $ v \in V $ ist die Anzahl der mit ihm in Verbindung stehender Knoten, d.h. $ \deg(v) = |\{ w \mid \{ v, w \} \in E \}| $.
@@ -40,6 +81,26 @@ Im folgenden Sei $ G = (V, E) $ ein fixierter Graph.
         \item $ 0 \leq d(v_1, v_2) $
     \end{enumerate}
 \end{observation}
+
+\begin{definition}[Euler'scher Graph]
+    $ G $ ist ein \textit{Euler'scher Graph}, falls ein geschlossener Weg existiert, der alle Knoten abdeckt.
+\end{definition}
+
+\begin{proposition}
+    $ G $ ist ein Euler'scher Weg gdw. $ G $ ist zusammenhängend und jeder Knoten hat geraden Grad.
+\end{proposition}
+
+\begin{definition}[Algorithmus Euler'sche Graphen]
+    Zur Konstruktion eines entsprechendes Wegs, ein sog. \textit{Eulerkreis}, in einem Euler'schen Graphen kann dieser Algorithmus verwendet werden:
+    \begin{enumerate}
+        \item Wähle beliebigen Knoten $ v_0 $ und konstruiere einen Kreis $ K $, der keine Kante zwei mal durchläuft.
+        \item \label{itm:euler-rec}
+        Ist $ K $ ein Eulerkreis, brich ab.
+        \item Lösche $ K $ aus $ G $.
+        \item Suche ersten Knoten $ v_0^+ $ in $ K $, dessen Grad größer als $ 0 $ ist und suche einen Unterkreis $ K' $, der keine Kante zwei mal durchläuft.
+        \item Füge $ K' $ in $ K $ an Stelle des Knoten $ v_0^+ $ ein und gehe zu \ref{itm:euler-rec}.
+    \end{enumerate}
+\end{definition}
 
 \begin{definition}[Durchmesser]
     Der \textit{Durchmesser} $ D $ von $ G $ ist definiert als:
