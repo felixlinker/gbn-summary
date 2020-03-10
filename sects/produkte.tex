@@ -29,6 +29,24 @@
     \end{enumerate}
 \end{theorem}
 
+\begin{remark}
+    Eine Primfaktorzerlegung bzgl. des Graph-Produkts lässt sich in Linearzeit berechnen.
+\end{remark}
+
+\begin{definition}[Hamming-Graph]
+    $ G $ ist ein \textit{Hamming-Graph}, falls er sich für ein $ n \in \nats $ darstellen lässt als ein Produkt vollständig verbundener $ n $ Graphen:
+    \begin{equation*}
+        \boxdot^k_{i = 1} K_n
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    Bspw. sind alle $ n $-dimensionalen Hyperwürfel ein Hamming-Graph auf Basis von $ K_2 $.
+
+    Ein Hamming-Graph lässt einen die Hamming-Distanz von Wörter über einem Alphabet der Größe $ n $ direkt aus der Distanz im Graphen ablesen.
+    Jeder Knoten im $ K_n $ Graph repräsentiert einen Buchstaben des Wortes, ein Tupel-Knoten im $ K_n^k $-Hamming-Graphen ein Wort.
+\end{remark}
+
 \begin{definition}[Direktes Produkt]
     Seien $ G, H $ Graphen.
     Definiere das \textit{direkte Produkt} $ G \times H $ als:

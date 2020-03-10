@@ -586,6 +586,15 @@ Aus der Charakterisierung von 2-verbundenen Graphen in Proposition \ref{prp:char
     Eine Kirchhoff-Basis ist strikt fundamental, d.h. ist $ B $ eine strikt fundamentale Kreisbasis von $ \mathcal{C}(G) $, dann ex. ein Spannbaum $ T $, sodass $ B $ die Kirchhoff-Basis für $ T $ ist.
 \end{proposition}
 
+\begin{definition}[Robust]
+    Eine Menge von Kreisen $ \mathcal{F} $ ist \textit{robust}, falls die Kreise in $ \mathcal{F} $ in eine Folge $ (C_0, C_1, \dots, C_k) $ so geordnet werden können, dass für alle $ 2 \leq n \leq k $ gilt:
+
+    \begin{equation*}
+        \bigoplus^{k-1}_{i=1} C_i
+    \end{equation*}
+    ist ein elementarer Kreis.
+\end{definition}
+
 \begin{definition}[Matroid]
     Sei $ X $ eine Grundmenge, $ I \subseteq 2^X $.
     $ I $ ist ein \textit{Matroid}, falls:
@@ -677,6 +686,10 @@ Aus der Charakterisierung von 2-verbundenen Graphen in Proposition \ref{prp:char
     Ein Kreis $ C $ ist isometrisch, falls er zwei Knoten $ v_1, v_2 $ enthält, sodass ein kürzester Weg $ P^* $ zwischen $ v_1 $ und $ v_2 $ existiert, sodass $ P^* \subseteq C $.
 \end{definition}
 
+\begin{proposition}
+    Ist ein Kreis relevant, dann ist er auch isometrisch.
+\end{proposition}
+
 \begin{lemma}
     Sei $ M $ eine MCB.
     $ M_i(M) $ bezeichne die Anzahl der Kreise der Länge $ i $ in $ M $.
@@ -704,3 +717,18 @@ Aus der Charakterisierung von 2-verbundenen Graphen in Proposition \ref{prp:char
     Es gilt $ A, B \in I $, da beide Mengen jeweils linear unabhängig.
     Da $ I $ ein Matroid ist und $ |B| < |A| $ somit auch $ B \cup \{ C_i' \} \in I $
 \end{proof}
+
+\begin{definition}[Kanten-kurz]
+    Sei $ C $ ein Kreis in $ G $.
+    Sei $ e = \{ v_1, v_2 \} \in E $.
+    $ v_1', v_2' \in V $ liegen $ e $ \textit{gegenüber}, falls $ |C| $ ungerade und beide Pfade $ v_1 \dots v_1' $ bzw. $ v_2 \dots v_2' $ in $ C $ ohne $ e $ und $ \{ v_1', v_2' \} $ gleiche Länge haben.
+
+    Ansonsten liegt $ e $ dem Knoten $ x \in V $ gegenüber, falls die Pfade $ v_1 \dots x $ und $ v_2 \dots x $ in $ C $ ohne $ e $ haben gleicher Länge sind.
+
+    $ C $ heißt \textit{kanten-kurz}, falls für jede Kante $ e \in E $ gilt, dass es keinen Pfad in $ G $ zu den gegenüberliegenden Knoten $ v_1', v_2' \in V $ gibt, der kürzer ist als die jeweils kürzesten Pfade von $ v_1 $ und $ v_2 $ aus.
+    (Angemerkt sei, dass ggfs. $ v_1' = v_2' $, falls $ |C| $ ungerade.)
+\end{definition}
+
+\begin{proposition}
+    Ist ein Kreis relevant, dann ist er auch kanten-kurz.
+\end{proposition}
