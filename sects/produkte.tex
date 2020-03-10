@@ -2,10 +2,10 @@
 
 \begin{definition}[Produkt]
     Seien $ G, H $ Graphen.
-    Definiere $ \boxdot $ Operator:
+    Definiere $ \boxop $ Operator:
     \begin{itemize}
-        \item $ V(G \boxdot H) = V(G) \times V(H) $
-        \item $ \{ (x, y), (u, v) \} \in E(G \boxdot H) $ gdw. \begin{enumerate}
+        \item $ V(G \boxop H) = V(G) \times V(H) $
+        \item $ \{ (x, y), (u, v) \} \in E(G \boxop H) $ gdw. \begin{enumerate}
             \item $ \{ x, u \} \in E(G) $ und $ y = v $ oder
             \item $ \{ y, v \} \in E(H) $ und $ x = u $.
         \end{enumerate}
@@ -13,19 +13,19 @@
 \end{definition}
 
 \begin{proposition}
-    Für $ \boxdot $ gilt:
+    Für $ \boxop $ gilt:
     \begin{itemize}
-        \item Ein \textit{neutrales Element} existiert: $ G \boxdot K_1 \cong G $
-        \item Assoziativität: $ (G \boxdot H) \boxdot I \cong G \boxdot (H \boxdot I) $
-        \item Kommutativität: $ G \boxdot H \cong H \boxdot G $
+        \item Ein \textit{neutrales Element} existiert: $ G \boxop K_1 \cong G $
+        \item Assoziativität: $ (G \boxop H) \boxop I \cong G \boxop (H \boxop I) $
+        \item Kommutativität: $ G \boxop H \cong H \boxop G $
     \end{itemize}
 \end{proposition}
 
 \begin{theorem}
     Sei $ G $ ein Graph, dann gibt es eine eindeutige Multi-Menge von Graphen $ G_i \neq K_i $ mit:
     \begin{enumerate}
-        \item $ G = \boxdot^k_{i = 1} G_i $ und
-        \item $ G_i $ ist prim, d.h., wenn $ G_i = H_1 \boxdot H_2 $, dann $ H_1 = K_1 $ oder $ H_2 = K_1 $.
+        \item $ G = \boxop^k_{i = 1} G_i $ und
+        \item $ G_i $ ist prim, d.h., wenn $ G_i = H_1 \boxop H_2 $, dann $ H_1 = K_1 $ oder $ H_2 = K_1 $.
     \end{enumerate}
 \end{theorem}
 
@@ -36,7 +36,7 @@
 \begin{definition}[Hamming-Graph]
     $ G $ ist ein \textit{Hamming-Graph}, falls er sich für ein $ n \in \nats $ darstellen lässt als ein Produkt vollständig verbundener $ n $ Graphen:
     \begin{equation*}
-        \boxdot^k_{i = 1} K_n
+        \boxop^k_{i = 1} K_n
     \end{equation*}
 \end{definition}
 
@@ -61,7 +61,7 @@
     Definiere das \textit{starke Produkt} $ G \boxtimes H $ als:
     \begin{itemize}
         \item $ V(G \boxtimes H) = V(G) \times V(H) $ und
-        \item $ E(G \boxtimes H) = E(G \times H) \cup E(G \boxdot H) $.
+        \item $ E(G \boxtimes H) = E(G \times H) \cup E(G \boxop H) $.
     \end{itemize}
 \end{definition}
 
