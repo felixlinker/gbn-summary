@@ -179,3 +179,37 @@
         \end{bmatrix}
     \end{equation*}
 \end{proposition}
+
+\section{Anwendung von Hypergraphen}
+
+Ein System von chemischen Reaktionen kann durch einen gewichteten und gerichteten Hypergraphen $ H = (V, E, w) $ beschrieben werden.
+Ein Knoten $ v \in V $ stellt ein chemisches Element dar; dies kann eine der Funktionen: Futter des System, Zwischenprodukt oder Endprodukt einnehmen.
+Eine Kante $ e \in E $ stellt eine chemische Reaktion dar.
+$ e^- $ sind die Stoffe, die in der Reaktion verbraucht werden, $ e^+ $ die Stoffe, die erzeugt werden.
+Kanten mit $ e^- = \emptyset $ können genutzt werden, um den Zufluss von Produkten aus dem System zu modellieren, Kanten mit $ e^+ = \emptyset $ um den Abfluss zu modellieren.
+$ w : E \times V \to \nats $ stellt den Verbrauch eines Element bzw. Generierung eines Produkts in einer spezifischen Reaktion dar.
+Diese Funktion bildet Elemente, die nicht an einer Reaktion teilnehmen auf $ 0 $ ab.
+
+\begin{definition}[Stoichiometrische Koeffzienten/Matrix]
+    Die stoichiometrische Matrix $ S_H $ eines gewichtete, gerichteten Reaktions-Hypergraphen $ H = (V, E, w) $ ist die Inzidenzmatrix zu $ H $ komponentenweise multipliziert mit $ w $.
+\end{definition}
+
+\begin{remark}
+    Im Allgemeinen hat eine entrspechende stoichemetrische Matrix die in Abbildung \ref{fig:stoich} dargestellte Form, wobei $ E $ für die Einheitsmatrix steht.
+
+    In der \textbf{F}lux \textbf{B}alance \textbf{A}nalysis (FBA) bzw. der \textbf{M}ultiple \textbf{F}lux \textbf{A}nalysis (MFA) wird untersucht, wie solche Systeme dargestellt als stoichemetrische Matrix $ S $ mit einem Gewichtungs-Vektor $ v \in \reals^E $, der die Reaktions- bzw. Zu- und Abflussraten darstellt, optimiert werden können.
+    Dabei wird die folgende Gleichung betrachtet:
+    \begin{equation*}
+        S \cdot v = 0
+    \end{equation*}
+
+    Fixiert wird dabei einerseits die Matrix, um herauszufinden unter welche Zugabe von Stoffen und unter welcher Reaktionsrate optimal viele Endprodukte erzeugt werden können.
+    Andererseits kann auch der Vektor $ v $ fixiert werden, um zu untersuchen, wie das System optimiert werden kann, d.h. welche Reaktionen ggfs. \textit{besser} ablaufen sollten.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\textwidth]{figures/stoichiometrisch.png}
+        \caption{Stoichemetrische Matrix als Reaktions-System}
+        \label{fig:stoich}
+    \end{figure}
+\end{remark}
