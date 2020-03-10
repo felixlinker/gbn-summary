@@ -36,3 +36,31 @@
     \caption{Monorphismus Beispiel}
     \label{fig:monomorphism}
 \end{figure}
+
+\begin{remark}[DPO-Modell]
+    Über Monomorphismen können Graph-Ersetzung-Regeln definiert werden.
+    Dies geschieht bspw. im \textbf{D}ouble-\textbf{P}ush-\textbf{O}ut Modell (DPO).
+    Eine Graph Regel ist dort ein Tripel $ (L, K, R) $ mit zwei Monomorphismen $ m_l : K \to L $ und $ m_r : K \to R $.
+    Knapp zusammengefasst:
+    \begin{itemize}
+        \item $ K $ ist eine Vorbedingung, die man in einem Eingabegraphen ``finden'' können muss, um die Regel anzuwenden.
+        \item $ L $ ist der Teil des Eingabegraphen, der gelöscht wird.
+        \item $ R $ ist der Teil des Eingabegraphen, der hinzugefügt wird.
+    \end{itemize}
+
+    Eine Ersetzung verläuft dann in diesen Schritten (vgl. Abb. \ref{fig:dpo}; Pfeile veranschaulichen Monomorphismen):
+    \begin{enumerate}
+        \item Finde einen ``glue''-Graphen $ D $, der zusammen mit $ L $ wieder $ G $ ergibt und zu dem ein Monomorphismus von $ K $ aus existiert.
+        Des Weiteren muss ein Monomorphismus von $ D $ nach $ G $ existieren.
+        \item Verwende $ D $, um den Ergebnisgraphen $ H $ zu erzeugen.
+        Dieser ergibt sich aus der ``Summe'' von $ R $ und $ D $.
+        Wieder existiert ein Monomorphismus von je $ R $ und $ D $ nach $ H $.
+    \end{enumerate}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\textwidth]{figures/dpo.png}
+        \caption{DPO}
+        \label{fig:dpo}
+    \end{figure}
+\end{remark}
