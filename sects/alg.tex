@@ -128,9 +128,9 @@ Im folgenden sei $ G = (V = \{ v_1, \dots, v_n \}, E = \{ e_1, \dots, e_m \}) $ 
     Dies ist die durch das Theorem beschriebene ``interlacing Struktur''.
 \end{theorem}
 
-\begin{observation}
+\begin{remark}
     Das Cauchy Interlace Theorem (\ref{thm:interlace}) beschreibt, welche Auswirkungen das Löschen von Knoten auf die Eigenwerte der Laplacematrix und damit Konnektivität des Graphen hat.
-\end{observation}
+\end{remark}
 
 \section{Konnektivität}
 
@@ -214,7 +214,7 @@ Werden Teilgraphen betrachtet, müssen diese die gleichen Eigenschaften erfülle
 \end{definition}
 
 Im Folgenden werden Mengen von Kanten und charakteristische Vektoren synonym verwendet.
-Des Weiteren bezeichne $ \cdot $ die komponentenweise Multiplikation, $ \odot $ die Matrixmultiplikation und $ \oplus $ den XOR Operator.
+Des Weiteren bezeichne $ \cdot $ die komponentenweise Multiplikation, $ \oplus $ den XOR Operator und $ \odot $ die Matrixmultiplikation mit $ \oplus $ als Addition.
 
 \begin{proposition}
     \label{prp:xor-odd-even}
@@ -229,7 +229,7 @@ Des Weiteren bezeichne $ \cdot $ die komponentenweise Multiplikation, $ \odot $ 
 \end{proposition}
 
 \begin{proposition}
-    Sei $ H $ eine Inzidenzmatrix und $ C \subseteq E $ ein Kreis.
+    Sei $ H $ eine Inzidenzmatrix und $ C \subseteq E $ ein elementarer Kreis.
     Dann gilt:
     \begin{equation*}
         H \odot C = 0^m
@@ -244,11 +244,11 @@ Des Weiteren bezeichne $ \cdot $ die komponentenweise Multiplikation, $ \odot $ 
     Betrachte $ x \in V $.
     Beweis per Fallunterscheidung.
     \begin{enumerate}
-        \item Es gelte: $ x $ liegt auf $ C $.
+        \item Es gelte: $ x $ liegt nicht auf $ C $.
 
         Dann gilt $ \bigoplus_{e \in E} H_{xe} \cdot C_e = 0 $, da niemals $ H_{xe} = 1 $ ($ x $ ist inzident zu Kante $ e $) und $ C_e = 1 $ (Kante $ e $ ist im Kreis).
 
-        \item Es gelt: $ x $ liegt auf $ C $.
+        \item Es gelte: $ x $ liegt auf $ C $.
 
         Dann gibt es genau zwei Kanten auf $ C $, die zu $ x $ inzident sind.
         Somit gilt:
@@ -266,6 +266,7 @@ Des Weiteren bezeichne $ \cdot $ die komponentenweise Multiplikation, $ \odot $ 
     \begin{equation*}
         \vec{C_1} \oplus \vec{C_2} \simeq C_1 \simdif C_2 = (C_1 \cup C_2) \setminus (C_1 \cap C_2)
     \end{equation*}
+    ist wieder ein Kreis.
 \end{proposition}
 
 \begin{proposition}
@@ -583,7 +584,8 @@ Aus der Charakterisierung von 2-verbundenen Graphen in Proposition \ref{prp:char
 \end{definition}
 
 \begin{proposition}
-    Eine Kirchhoff-Basis ist strikt fundamental, d.h. ist $ B $ eine strikt fundamentale Kreisbasis von $ \mathcal{C}(G) $, dann ex. ein Spannbaum $ T $, sodass $ B $ die Kirchhoff-Basis für $ T $ ist.
+    Eine Kirchhoff-Basis ist strikt fundamental.
+    D.h. ist $ B $ eine strikt fundamentale Kreisbasis von $ \mathcal{C}(G) $, dann ex. ein Spannbaum $ T $, sodass $ B $ die Kirchhoff-Basis für $ T $ ist.
 \end{proposition}
 
 \begin{definition}[Robust]

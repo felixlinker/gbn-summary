@@ -82,8 +82,8 @@
     \end{description}
 \end{proof}
 
-\begin{corollary}[Triangulation]
-    \label{cor:triangulation}
+\begin{corollary}
+    \label{cor:max-edges}
     Sei $ G = (V, E) $ ein Graph in der Ebene mit $ |V| \geq 3 $.
     $ G $ hat dann maximal $ 3n - 6 $ Kanten.
 \end{corollary}
@@ -194,6 +194,7 @@
         Da die Einbettung so gewählt wurde, dass maximal Facetten in $ C $ liegen, kann es keinen Pfad mit Endpunkten in $ C $ außerhalb zu $ C $ geben.
 
         Es muss ebenso einen Pfad $ Q $ geben, der Knoten aus $ \{ v_1, \dots, v_{k - 1} \} $ und aus $ \{ v_{k + 1}, \dots, v_l \} $ verbindet und der außerhalb von $ C $ liegt.
+        Ansonsten könnte die Kante $ \{ u, v \} $ außerhalb des Graphen gezeichnet werden, sodass $ G $ planar ist.
 
         Betrachte nun die Graphen in Abbildung \ref{fig:kuratowski-bsp}.
         Diese stellen alle Möglichkeiten dar, wie $ C $ aufgebaut sein kann.

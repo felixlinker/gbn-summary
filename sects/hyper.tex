@@ -2,7 +2,7 @@
 \label{chpt:hypergraphs}
 
 \begin{definition}[Hypergraph]
-    Ein Hypergraph $ H = (V, E) $ ist ein Tupel aus einer Knotenmenge $ V $ und einer Kantenmenge $ E \subseteq 2^V $, wobei $ \emptyset \in E $ möglich ist.
+    Ein Hypergraph $ H = (V, E) $ ist ein Tupel aus einer Knotenmenge $ V $ und einer Kantenmenge $ E \subseteq 2^V $ mit $ \emptyset \notin E $.
 \end{definition}
 
 \begin{definition}[Einfach]
@@ -92,7 +92,6 @@
 
 \begin{remark}
     Jeder König-Graph ist bipartit.
-    Leere Kanten können dabei nicht abgebildet werden.
 \end{remark}
 
 \begin{lemma}

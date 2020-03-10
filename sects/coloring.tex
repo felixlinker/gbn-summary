@@ -83,7 +83,7 @@ Im folgenden sei $ G = (V, E) $ ein fixierter Graph.
     Es genügt daher, den Beweis nur für 2-verbundene Graphen zu führen.
 
     Sei $ \{ v, x\} \subseteq V $ ein cutset von $ G $.
-    Dann ist $ G \setminus \{ v \} $ nicht 2-verbunden und hat zwei Blöcken $ B_1, B_2 $.
+    Dann ist $ G \setminus \{ v \} $ verbunden, aber nicht 2-verbunden und hat zwei Blöcken $ B_1, B_2 $.
     Somit ex. zwei non-cut-vertices $ u \in B_1 $ und $ w \in B_2 $ adjazent zu $ v $.
     $ uvw $ ist der gesuchte Pfad.
 \end{proof}
@@ -137,7 +137,7 @@ Im folgenden sei $ G = (V, E) $ ein fixierter Graph.
 
 \begin{proof}
     Es gilt $ d(G) = 2 \frac{|E|}{|V|} $.
-    Mit $ |V| \geq 3 $, $ |E| \leq 3 |V| - 6 $ (cgl. Korollar \ref{cor:triangulation}).
+    Mit $ |V| \geq 3 $, $ |E| \leq 3 |V| - 6 $ (cgl. Korollar \ref{cor:max-edges}).
     Dann gilt:
     \begin{align*}
         d(G) & \leq \frac{2 \cdot (3|V| - 6)}{|V|} \\
