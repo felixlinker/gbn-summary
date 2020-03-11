@@ -706,18 +706,25 @@ Aus der Charakterisierung von 2-verbundenen Graphen in Proposition \ref{prp:char
 
 \begin{proof}
     Betrachte zwei MCBs $ M = (C_1, C_2, \dots, C_k) $ und $ M' = (C_1', C_2', \dots, C_k') $ als Folgen von nach Länge aufsteigend sortierten Kreisen.
-    Angenommen, es ex. o.B.d.A. ein Index $ i $ mit $ |C_i'|<|C_i| $.
+    Angenommen, es gilt o.B.d.A., dass $ |C_k'|<|C_k| $.
     Wähle $ i $ minimal.
 
     Seien:
     \begin{itemize}
-        \item $ B = { C_1, C_2, \dots, C_{i - 1} } $
-        \item $ A = { C_1', C_2', \dots, C_i' } $
+        \item $ B = { C_1, C_2, \dots, C_{k - 1} } $
+        \item $ A = { C_1', C_2', \dots, C_k' } $
     \end{itemize}
 
     Betrachte das Vektormatroid $ I $ zum Kreisvektorraum $ \mathcal{C}(G) $.
     Es gilt $ A, B \in I $, da beide Mengen jeweils linear unabhängig.
-    Da $ I $ ein Matroid ist und $ |B| < |A| $ somit auch $ B \cup \{ C_i' \} \in I $
+    Da $ I $ ein Matroid ist und $ |B| < |A| $ somit auch $ B' = B \cup \{ C_k' \} \in I $.
+
+    Somit ist $ B' $ maximal-unabhängig und damit eine Basis.
+    Aber auch:
+    \begin{equation*}
+        \sum_{C \in B'} |C| < \sum_{C \in M} |C|
+    \end{equation*}
+    Widerspruch zu $ M $ ist eine minimale Kreisbasis.
 \end{proof}
 
 \begin{definition}[Kanten-kurz]
