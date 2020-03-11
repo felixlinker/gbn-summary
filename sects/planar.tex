@@ -95,8 +95,8 @@
     $ G' = (V \cup \{ w \}, E \setminus e \cup \{ \{ x, w \}, \{ w, y \} \}) $ ist eine Unterteilung von $ G $.
 \end{definition}
 
-\begin{definition}[Graph-Mimor/Subdivision]
-    Ein Graph $ H $ ist ein Mimor von $ G = (V, E) $, falls:
+\begin{definition}[Graph-Minor/Subdivision]
+    Ein Graph $ H $ ist ein Minor von $ G = (V, E) $, falls:
     \begin{itemize}
         \item $ H $ durch Löscher einer Kante entstanden ist, d.h. $ H = G \setminus \{ e \} $ für ein $ e \in E $,
         \item $ H $ durch Löschen eines Knoten entstanden ist, d.h. $ H = G \setminus \{ v \} $ für ein $ v \in V $, oder
@@ -156,13 +156,13 @@
 
 \begin{theorem}[Kuratowskis Theorem]
     Sei $ G $ ein Graph.
-    $ G $ ist nicht planar gdw. weder $ K_{3,3} $ noch $ K_5 $ ist ein Mimor von $ G $.
+    $ G $ ist nicht planar gdw. weder $ K_{3,3} $ noch $ K_5 $ ist ein Minor von $ G $.
 \end{theorem}
 
 \begin{proof}~\par
     \begin{description}
         \item[``($ \Leftarrow $)''] Dies folgt mehr oder weniger direkt aus den Lemmata \ref{lem:k33-planar} und \ref{lem:k5-planar}.
-        \item[``($ \Rightarrow $)''] Angenommen $ G $ ist nicht planar, aber enthält weder $ K_{3,3} $ noch $ K_5 $ als Mimor.
+        \item[``($ \Rightarrow $)''] Angenommen $ G $ ist nicht planar, aber enthält weder $ K_{3,3} $ noch $ K_5 $ als Minor.
         Wähle $ G $ minimal mit obigen Eigenschaften.
 
         Es gilt: $ G $ ist zwei verbunden.
